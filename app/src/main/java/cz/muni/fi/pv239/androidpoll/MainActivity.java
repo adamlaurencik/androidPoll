@@ -1,5 +1,6 @@
 package cz.muni.fi.pv239.androidpoll;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,8 +10,20 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
 
+import cz.muni.fi.pv239.androidpoll.Entities.Category;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
+import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+public class MainActivity extends AppCompatActivity {
+    private Context that= this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +39,27 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://fcb.php5.sk/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+        ServerApi api = retrofit.create(ServerApi.class);
+        Call<ServerResponse<List<Category>>> call =api.getCategories();
+        call.enqueue(new Callback<ServerResponse<List<Category>>>() {
+            @Override
+            public void onResponse(Call<ServerResponse<List<Category>>> call, Response<ServerResponse<List<Category>>> response) {
+                response.body().isSuccessful();
+
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse<List<Category>>> call, Throwable t) {
+            }
+        });
+
     }
 
     @Override

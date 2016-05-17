@@ -1,10 +1,17 @@
 package cz.muni.fi.pv239.androidpoll.Entities;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Adam on 05.05.2016.
  */
 public class Category {
+    @SerializedName("id")
+    @Expose
     private Long id;
+    @SerializedName("name")
+    @Expose
     private String name;
 
     public Long getId() {
