@@ -19,13 +19,13 @@ public interface ServerApi {
 
     @POST("/homepage/register")
     public Call<ServerResponse<User>> registerUser(
-            @Field("login") String username,
-            @Field("password") String password,
-            @Field("age") String age,
-            @Field("gender") String gender);
+            @Query("login") String username,
+            @Query("password") String password,
+            @Query("age") String age,
+            @Query("gender") String gender);
 
     @POST("/homepage/login")
     public Call<ServerResponse<User>> loginUser(
-            @Field("login") String username,
-            @Field("password") String password);
+            @Query("login") String username,
+            @Query("password") String password);
 }

@@ -1,12 +1,14 @@
 package cz.muni.fi.pv239.androidpoll.Managers.impl;
 
 import android.content.Context;
+import android.content.Intent;
 import android.widget.Toast;
 import cz.muni.fi.pv239.androidpoll.Entities.Gender;
 import cz.muni.fi.pv239.androidpoll.Entities.User;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import cz.muni.fi.pv239.androidpoll.TestActivity;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Response;
@@ -63,21 +65,28 @@ public class UserManagerImpl implements UserManager{
         }
 
         ServerApi api = retrofit.create(ServerApi.class);
-        Call<ServerResponse<User>> call = api.loginUser(username, password);
+        try {
+            Call<ServerResponse<User>> call = api.loginUser(username, password);
         call.enqueue(new Callback<ServerResponse<User>>() {
             @Override
             public void onResponse(Call<ServerResponse<User>> call, Response<ServerResponse<User>> response) {
                 if (response.body().isSuccessful()) {
-                    Toast.makeText(context, "User was successfully registered", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "User was successfully logged in! :)", Toast.LENGTH_LONG).show();
+
                 } else {
                     Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
                 }
+                //Intent intent = new Intent(context, TestActivity.class);
+                //context.startActivity(intent);
             }
 
             @Override
             public void onFailure(Call<ServerResponse<User>> call, Throwable t) {
-                //logging
+                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show();
             }
         });
+        }catch (Exception ex){
+            Toast.makeText(context,"",Toast.LENGTH_LONG).show();
+        }
     }
 }
