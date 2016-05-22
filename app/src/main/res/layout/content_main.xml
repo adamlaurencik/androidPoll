@@ -12,8 +12,28 @@
     tools:context="cz.muni.fi.pv239.androidpoll.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:id="@+id/login"
+        android:layout_marginTop="130dp"
+        android:layout_marginLeft="20dp" />
+
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="55dp"
+        android:id="@+id/password"
+        android:layout_below="@+id/login"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <Button
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
-        android:text="Filip je Buzerant" />
+        android:text="LOG IN"
+        android:id="@+id/loginButton"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="91dp" />
+
 </RelativeLayout>

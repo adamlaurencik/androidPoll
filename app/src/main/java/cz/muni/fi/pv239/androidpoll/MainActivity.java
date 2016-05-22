@@ -9,10 +9,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
 
 import cz.muni.fi.pv239.androidpoll.Entities.Category;
+import cz.muni.fi.pv239.androidpoll.Managers.impl.UserManagerImpl;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
 import retrofit2.Retrofit;
@@ -23,7 +27,9 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-    private Context that= this;
+    private Context that = this;
+    private android.widget.Button button = null;
+    UserManagerImpl userManager = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,20 +52,37 @@ public class MainActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
+
+
         ServerApi api = retrofit.create(ServerApi.class);
-        Call<ServerResponse<List<Category>>> call =api.getCategories();
+        Call<ServerResponse<List<Category>>> call = api.getCategories();
         call.enqueue(new Callback<ServerResponse<List<Category>>>() {
             @Override
             public void onResponse(Call<ServerResponse<List<Category>>> call, Response<ServerResponse<List<Category>>> response) {
                 response.body().isSuccessful();
-
             }
 
             @Override
             public void onFailure(Call<ServerResponse<List<Category>>> call, Throwable t) {
+                //logging
             }
         });
 
+        this.userManager = new UserManagerImpl(retrofit, MainActivity.this);
+
+        Button loginButton = (Button) findViewById(R.id.loginButton);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText loginE = (EditText) findViewById(R.id.login);
+                EditText  passwordE = (EditText) findViewById(R.id.password);
+
+                String username = loginE.getText().toString();
+                String password = passwordE.getText().toString();
+
+                userManager.loginUser(username, password);
+            }
+        });
     }
 
     @Override
