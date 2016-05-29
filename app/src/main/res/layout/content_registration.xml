@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".Activities.RegistrationActivity">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/registrationNameEditText"
+        android:layout_marginTop="46dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/registrationPasswordEditText"
+        android:layout_alignStart="@+id/registrationPasswordEditText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/registrationPasswordEditText"
+        android:layout_below="@+id/registrationNameEditText"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/registrationPasswordTextView"
+        android:layout_toRightOf="@+id/registrationPasswordTextView"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:id="@+id/registrationFemaleRadioButton"
+        android:layout_marginTop="38dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginEnd="26dp"
+        android:checked="false"
+        android:layout_below="@+id/registrationPasswordEditText"
+        android:layout_alignRight="@+id/registrationPasswordEditText"
+        android:layout_alignEnd="@+id/registrationPasswordEditText" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:id="@+id/registrationMaleRadioButton"
+        android:checked="false"
+        android:layout_alignTop="@+id/registrationFemaleRadioButton"
+        android:layout_alignLeft="@+id/registrationPasswordEditText"
+        android:layout_alignStart="@+id/registrationPasswordEditText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name:"
+        android:id="@+id/registrationNameTextView"
+        android:layout_alignTop="@+id/registrationNameEditText"
+        android:layout_alignRight="@+id/registrationAgeTextView"
+        android:layout_alignEnd="@+id/registrationAgeTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Password:"
+        android:id="@+id/registrationPasswordTextView"
+        android:layout_below="@+id/registrationNameEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <NumberPicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/registrationAgeNumberPicker"
+        android:layout_above="@+id/registrationFinishButton"
+        android:layout_alignRight="@+id/registrationFemaleRadioButton"
+        android:layout_alignEnd="@+id/registrationFemaleRadioButton"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Age:"
+        android:id="@+id/registrationAgeTextView"
+        android:layout_alignTop="@+id/registrationAgeNumberPicker"
+        android:layout_toLeftOf="@+id/registrationFinishButton"
+        android:layout_toStartOf="@+id/registrationFinishButton"
+        android:layout_marginTop="67dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/registrationFinishButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/registrationAgeNumberPicker"
+        android:layout_alignEnd="@+id/registrationAgeNumberPicker"
+        android:layout_alignLeft="@+id/registrationMaleRadioButton"
+        android:layout_alignStart="@+id/registrationMaleRadioButton"
+        android:onClick="onProceedRegistrationClick" />
+
+</RelativeLayout>

@@ -8,7 +8,6 @@ import cz.muni.fi.pv239.androidpoll.Entities.User;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
-import cz.muni.fi.pv239.androidpoll.TestActivity;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.Response;
