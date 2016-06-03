@@ -1,7 +1,6 @@
-package cz.muni.fi.pv239.androidpoll.Activities;
+package cz.muni.fi.pv239.androidpoll;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,12 +11,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 import cz.muni.fi.pv239.androidpoll.Entities.Category;
+import cz.muni.fi.pv239.androidpoll.Entities.Question;
+import cz.muni.fi.pv239.androidpoll.Managers.impl.QuestionManagerImpl;
 import cz.muni.fi.pv239.androidpoll.Managers.impl.UserManagerImpl;
-import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
 import retrofit2.Retrofit;
@@ -27,14 +30,18 @@ import retrofit2.Response;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     private Context that = this;
     private android.widget.Button button = null;
-    UserManagerImpl userManager = null;
+    private UserManagerImpl userManager = null;
+    private QuestionManagerImpl questionManager = null;
+    private final CountDownLatch loginLatch = new CountDownLatch(1);
+    private List<Category> categories = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,20 +54,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fcb.php5.sk/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-
-        ServerApi api = retrofit.create(ServerApi.class);
+        /*
         Call<ServerResponse<List<Category>>> call = api.getCategories();
         call.enqueue(new Callback<ServerResponse<List<Category>>>() {
             @Override
             public void onResponse(Call<ServerResponse<List<Category>>> call, Response<ServerResponse<List<Category>>> response) {
                 response.body().isSuccessful();
+                //categories = response.body().getData();
             }
 
             @Override
@@ -68,27 +68,25 @@ public class LoginActivity extends AppCompatActivity {
                 //logging
             }
         });
+    */
+        this.userManager = new UserManagerImpl(MainActivity.this);
+        this.questionManager = new QuestionManagerImpl(MainActivity.this);
 
-        this.userManager = new UserManagerImpl(retrofit, LoginActivity.this);
-
-        Button loginButton = (Button) findViewById(R.id.loginFinishButton);
+        Button loginButton = (Button) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText loginE = (EditText) findViewById(R.id.loginNameEditText);
-                EditText  passwordE = (EditText) findViewById(R.id.loginPasswordEditText);
+
+                EditText loginE = (EditText) findViewById(R.id.login);
+                EditText  passwordE = (EditText) findViewById(R.id.password);
 
                 String username = loginE.getText().toString();
                 String password = passwordE.getText().toString();
 
-                userManager.loginUser(username, password);
+                questionManager.createQuestion("milan","labuda", new Category(), "jebem na to");
+                //questionManager.getAllCategories();
             }
         });
-    }
-
-    public void onProceedLoginClick(View v){
-        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-        startActivity(intent);
     }
 
     @Override

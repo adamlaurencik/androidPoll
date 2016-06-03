@@ -27,6 +27,7 @@ public interface ServerApi {
             @Query("password") String password);
 
     @POST("/homepage/get-random-question")
+
     public Call<ServerResponse<Question>> getRandomQuestion(
             @Query("categoryId") Long id,
             @Query("login") String login,
