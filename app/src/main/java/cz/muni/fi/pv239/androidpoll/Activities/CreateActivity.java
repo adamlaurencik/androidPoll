@@ -15,9 +15,9 @@ public class CreateActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_create);
+        setContentView(R.layout.activity_create);
     }
-    public void onProceedLoginClick(View v){
+    public void onProceedCreateClick(View v){
         Intent intent = new Intent(CreateActivity.this, OwnPollsActivity.class);
         startActivity(intent);
     }

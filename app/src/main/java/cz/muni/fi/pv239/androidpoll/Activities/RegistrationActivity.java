@@ -15,7 +15,7 @@ public class RegistrationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_registration);
+        setContentView(R.layout.activity_registration);
     }
 
     public void onProceedRegistrationClick(View v){

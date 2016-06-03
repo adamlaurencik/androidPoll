@@ -15,7 +15,7 @@ public class ResultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_results);
+        setContentView(R.layout.activity_results);
     }
     public void onMenuClick(View v){
         Intent intent = new Intent(ResultsActivity.this, MenuActivity.class);

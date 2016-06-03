@@ -13,7 +13,7 @@ public class OwnPollsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_own_polls);
+        setContentView(R.layout.activity_own_polls);
     }
 }
 
