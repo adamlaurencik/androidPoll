@@ -1,6 +1,7 @@
-package cz.muni.fi.pv239.androidpoll;
+package cz.muni.fi.pv239.androidpoll.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,12 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import java.util.List;
 
 import cz.muni.fi.pv239.androidpoll.Entities.Category;
 import cz.muni.fi.pv239.androidpoll.Managers.impl.UserManagerImpl;
+import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
 import retrofit2.Retrofit;
@@ -26,14 +27,14 @@ import retrofit2.Response;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private Context that = this;
     private android.widget.Button button = null;
     UserManagerImpl userManager = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -68,14 +69,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        this.userManager = new UserManagerImpl(retrofit, MainActivity.this);
+        this.userManager = new UserManagerImpl(retrofit, LoginActivity.this);
 
-        Button loginButton = (Button) findViewById(R.id.loginButton);
+        Button loginButton = (Button) findViewById(R.id.loginFinishButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText loginE = (EditText) findViewById(R.id.login);
-                EditText  passwordE = (EditText) findViewById(R.id.password);
+                EditText loginE = (EditText) findViewById(R.id.loginNameEditText);
+                EditText  passwordE = (EditText) findViewById(R.id.loginPasswordEditText);
 
                 String username = loginE.getText().toString();
                 String password = passwordE.getText().toString();
@@ -83,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
                 userManager.loginUser(username, password);
             }
         });
+    }
+
+    public void onProceedLoginClick(View v){
+        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 
     @Override
