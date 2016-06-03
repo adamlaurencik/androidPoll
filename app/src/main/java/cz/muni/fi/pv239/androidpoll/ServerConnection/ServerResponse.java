@@ -43,4 +43,7 @@ public class ServerResponse<E>{
         return error;
     }
 
+    public E getData(){
+        return data;
+    }
 }
