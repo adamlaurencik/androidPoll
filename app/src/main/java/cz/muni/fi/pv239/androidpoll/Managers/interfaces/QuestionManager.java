@@ -5,6 +5,9 @@ import java.util.List;
 import cz.muni.fi.pv239.androidpoll.Entities.Category;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Entities.Option;
+import cz.muni.fi.pv239.androidpoll.Entities.User;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import rx.Observer;
 
 
 /**
@@ -12,12 +15,11 @@ import cz.muni.fi.pv239.androidpoll.Entities.Option;
  */
 public interface QuestionManager {
 
-    public List<Category> getAllCategories();
-    public Question getRandomQuestion(Category category, String login, String password);
-    public List<Option> getQuestionOptions(Question q);
-    public void createQuestion(String login, String password, Category category, String text);
-    public void addOption(String login, String password, String text, Question q);
-    public void deleteOption(Question q, String login, String password);
-    public void skipQuestion(Question q, String login, String password);
-    public int getNumberOfAnswers(Question q);
+    public void getAllCategories(Observer<ServerResponse<List<Category>>> observer);
+    public void getRandomQuestion(Observer<ServerResponse<Question>> observer, Category category, String login, String password);
+
+    public void createQuestion(Observer<ServerResponse<Question>> observer, String login, String password, Category category, String text);
+    public void skipQuestion(Observer<ServerResponse<Question>> observer, Question q, String login, String password);
+    public void deleteQuestion(Observer<ServerResponse<Question>> observer, Question question, String login, String password);
+    public void getUsersQuestion(Observer<ServerResponse<List<Question>>> observer, String login, String password);
 }

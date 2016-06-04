@@ -1,37 +1,30 @@
 package cz.muni.fi.pv239.androidpoll.Managers.impl;
 
+import android.app.VoiceInteractor;
 import android.content.Context;
-import android.content.Intent;
-import android.widget.Toast;
 
-import java.util.concurrent.CountDownLatch;
-
-import cz.muni.fi.pv239.androidpoll.Entities.Gender;
-import cz.muni.fi.pv239.androidpoll.Entities.User;
-import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
+import cz.muni.fi.pv239.androidpoll.Entities.Answer;
+import cz.muni.fi.pv239.androidpoll.Entities.Option;
+import cz.muni.fi.pv239.androidpoll.Entities.Question;
+import cz.muni.fi.pv239.androidpoll.Managers.interfaces.AnswerManager;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
-import retrofit2.Call;
 import retrofit2.Retrofit;
-import retrofit2.Response;
-import retrofit2.Callback;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 import rx.Observer;
-import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by Administrátor on 21.5.2016.
+ * Created by Administrátor on 3.6.2016.
  */
-public class UserManagerImpl implements UserManager{
-
-    private ServerApi api = null;
+public class AnswerManagerImpl implements AnswerManager{
     private Context context = null;
+    private ServerApi api = null;
 
-    public UserManagerImpl(Context context){
+    public AnswerManagerImpl(Context context){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://fcb.php5.sk/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -43,32 +36,34 @@ public class UserManagerImpl implements UserManager{
     }
 
     @Override
-    public void registerNewUser(Observer<ServerResponse<User>> observer, String username, String password, Integer age, Gender gender) {
+    public void getNumberOfAnswers(Observer<ServerResponse<Long>> observer, Option option) {
         if(this.api == null){
-            throw new NullPointerException("retrofit was null");
+            //log
+            return;
         }
         if(this.context == null){
-            throw new NullPointerException("context was null");
+            //log
+            return;
         }
 
-        Observable<ServerResponse<User>> observable = api.registerUser(username, password, null, null);
+        Observable<ServerResponse<Long>> observable = api.getNumOfAnswers(option.getId());
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
     }
 
     @Override
-    public void loginUser(Observer<ServerResponse<User>> observer, String username, String password) {
+    public void answerQuestion(Observer<ServerResponse<Answer>> observer, String login, Question question, Option option, String password) {
         if(this.api == null){
-            throw new NullPointerException("retrofit was null");
+            //log
+            return;
         }
         if(this.context == null){
-            throw new NullPointerException("context was null");
+            //log
+            return;
         }
 
-        Observable<ServerResponse<User>> observable = api.loginUser(username, password);
+        Observable<ServerResponse<Answer>> observable = api.answer(login, question.getId(), option.getId(), password);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
-
 }
