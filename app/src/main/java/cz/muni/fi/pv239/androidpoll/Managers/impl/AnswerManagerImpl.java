@@ -8,6 +8,7 @@ import cz.muni.fi.pv239.androidpoll.Entities.Option;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.AnswerManager;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApiContainer;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -21,18 +22,10 @@ import rx.schedulers.Schedulers;
  * Created by Administrátor on 3.6.2016.
  */
 public class AnswerManagerImpl implements AnswerManager{
-    private Context context = null;
     private ServerApi api = null;
 
-    public AnswerManagerImpl(Context context){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fcb.php5.sk/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-        this.api = retrofit.create(ServerApi.class);
-        this.context = context;
+    public AnswerManagerImpl(){
+        this.api = ServerApiContainer.getServerApi();
     }
 
     @Override
@@ -41,11 +34,6 @@ public class AnswerManagerImpl implements AnswerManager{
             //log
             return;
         }
-        if(this.context == null){
-            //log
-            return;
-        }
-
         Observable<ServerResponse<Long>> observable = api.getNumOfAnswers(option.getId());
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -57,11 +45,6 @@ public class AnswerManagerImpl implements AnswerManager{
             //log
             return;
         }
-        if(this.context == null){
-            //log
-            return;
-        }
-
         Observable<ServerResponse<Answer>> observable = api.answer(login, question.getId(), option.getId(), password);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

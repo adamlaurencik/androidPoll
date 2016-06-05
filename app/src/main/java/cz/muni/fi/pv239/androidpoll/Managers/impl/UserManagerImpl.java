@@ -10,6 +10,7 @@ import cz.muni.fi.pv239.androidpoll.Entities.Gender;
 import cz.muni.fi.pv239.androidpoll.Entities.User;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApiContainer;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -29,17 +30,9 @@ import rx.schedulers.Schedulers;
 public class UserManagerImpl implements UserManager{
 
     private ServerApi api = null;
-    private Context context = null;
 
-    public UserManagerImpl(Context context){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fcb.php5.sk/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-        this.api = retrofit.create(ServerApi.class);
-        this.context = context;
+    public UserManagerImpl(){
+        this.api = ServerApiContainer.getServerApi();
     }
 
     @Override
@@ -47,10 +40,6 @@ public class UserManagerImpl implements UserManager{
         if(this.api == null){
             throw new NullPointerException("retrofit was null");
         }
-        if(this.context == null){
-            throw new NullPointerException("context was null");
-        }
-
         Observable<ServerResponse<User>> observable = api.registerUser(username, password, null, null);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -62,10 +51,6 @@ public class UserManagerImpl implements UserManager{
         if(this.api == null){
             throw new NullPointerException("retrofit was null");
         }
-        if(this.context == null){
-            throw new NullPointerException("context was null");
-        }
-
         Observable<ServerResponse<User>> observable = api.loginUser(username, password);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);

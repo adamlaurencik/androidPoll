@@ -27,7 +27,7 @@ public class AnswerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
-        QuestionManager manager= new QuestionManagerImpl(this);
+        QuestionManager manager= new QuestionManagerImpl();
         Observer<ServerResponse<Question>> observer= new Observer<ServerResponse<Question>>() {
             @Override
             public void onCompleted() {

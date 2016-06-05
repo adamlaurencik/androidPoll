@@ -130,7 +130,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         };
-        UserManager manager=new UserManagerImpl(this);
+        UserManager manager=new UserManagerImpl();
         manager.registerNewUser(observer, nameEdit.getText().toString(), passwordEdit.getText().toString(), agePick.getValue(), gender);
     }
 

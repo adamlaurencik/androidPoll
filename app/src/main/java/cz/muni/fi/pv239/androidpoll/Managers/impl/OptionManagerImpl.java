@@ -8,6 +8,7 @@ import cz.muni.fi.pv239.androidpoll.Entities.Option;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.OptionManager;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApiContainer;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
@@ -24,15 +25,8 @@ public class OptionManagerImpl implements OptionManager {
     private Context context = null;
     private ServerApi api = null;
 
-    public OptionManagerImpl(Context context){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fcb.php5.sk/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-        this.api =retrofit.create(ServerApi.class);
-        this.context = context;
+    public OptionManagerImpl(){
+        this.api = ServerApiContainer.getServerApi();
     }
 
     @Override
@@ -41,11 +35,6 @@ public class OptionManagerImpl implements OptionManager {
             //log
             return;
         }
-        if(this.context == null){
-            //log
-            return;
-        }
-
         Observable<ServerResponse<Option>> observable = api.addOption(login, q.getId(), text, password);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
@@ -57,15 +46,9 @@ public class OptionManagerImpl implements OptionManager {
             //log
             return;
         }
-        if(this.context == null){
-            //log
-            return;
-        }
-
         Observable<ServerResponse<List<Option>>> observable = api.getQuestionOptions(q.getId());
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
-
     }
 
     @Override

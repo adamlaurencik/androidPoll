@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         };
-        UserManager userManager= new UserManagerImpl(this);
+        UserManager userManager= new UserManagerImpl();
         userManager.loginUser(observer, nameEditText.getText().toString(), passwordEditText.getText().toString());
     }
 

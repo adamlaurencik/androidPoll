@@ -27,7 +27,7 @@ public class OwnPollsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own_polls);
         SecurePreferences preferences = new SecurePreferences(this);
-        final QuestionManager manager=new QuestionManagerImpl(this);
+        final QuestionManager manager=new QuestionManagerImpl();
         final ListView listView = (ListView) findViewById(R.id.own_poll_list_view);
         Observer<ServerResponse<List<Question>>> observer = new Observer<ServerResponse<List<Question>>>() {
             @Override
