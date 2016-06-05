@@ -1,11 +1,8 @@
 package cz.muni.fi.pv239.androidpoll.Activities;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -14,9 +11,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.LargeValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
@@ -26,9 +21,9 @@ import java.util.ArrayList;
 import cz.muni.fi.pv239.androidpoll.R;
 
 /**
- * Created by Filip on 28.5.2016.
+ * Created by Guest on 4.6.2016.
  */
-public class ResultsActivity extends AppCompatActivity {
+public class OwnResultsActivity extends AppCompatActivity {
 
     private RelativeLayout relativeLayout;
     private PieChart statsChart;
@@ -39,11 +34,11 @@ public class ResultsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
+        setContentView(R.layout.activity_own_results);
         makeGraph();
     }
     private void makeGraph(){
-        relativeLayout = (RelativeLayout) findViewById(R.id.resultActivityLayout);
+        relativeLayout = (RelativeLayout) findViewById(R.id.ownResultActivityLayout);
         statsChart = (PieChart) findViewById(R.id.pieStats);//new PieChart(thi
 
 
@@ -66,7 +61,7 @@ public class ResultsActivity extends AppCompatActivity {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
                 if (e == null) return;
-                Toast.makeText(ResultsActivity.this, names[e.getXIndex()] + " = " + e.getVal() + " answers", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OwnResultsActivity.this, names[e.getXIndex()] + " = " + e.getVal() + " answers", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -110,7 +105,7 @@ public class ResultsActivity extends AppCompatActivity {
         dataSet.setColors(colors);
         PieData pieData = new PieData(listX, dataSet);
         pieData.setValueFormatter(new LargeValueFormatter());
-                //new PercentFormatter());
+        //new PercentFormatter());
         pieData.setValueTextSize(11f);
         pieData.setValueTextColor(Color.GRAY);
 
@@ -120,13 +115,4 @@ public class ResultsActivity extends AppCompatActivity {
         statsChart.invalidate();
     }
 
-    public void onMenuClick(View v){
-        Intent intent = new Intent(ResultsActivity.this, MenuActivity.class);
-        startActivity(intent);
-    }
-
-    public void onNextClick(View v){
-        Intent intent = new Intent(ResultsActivity.this, AnswerActivity.class);
-        startActivity(intent);
-    }
 }
