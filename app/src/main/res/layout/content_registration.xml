@@ -40,29 +40,6 @@
         android:layout_toEndOf="@+id/registrationPasswordTextView"
         android:layout_toRightOf="@+id/registrationPasswordTextView"/>
 
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Female"
-        android:id="@+id/registrationFemaleRadioButton"
-        android:layout_marginTop="38dp"
-        android:layout_marginRight="26dp"
-        android:layout_marginEnd="26dp"
-        android:checked="false"
-        android:layout_below="@+id/registrationPasswordEditText"
-        android:layout_alignRight="@+id/registrationPasswordEditText"
-        android:layout_alignEnd="@+id/registrationPasswordEditText" />
-
-    <RadioButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Male"
-        android:id="@+id/registrationMaleRadioButton"
-        android:checked="false"
-        android:layout_alignTop="@+id/registrationFemaleRadioButton"
-        android:layout_alignLeft="@+id/registrationPasswordEditText"
-        android:layout_alignStart="@+id/registrationPasswordEditText" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,8 +47,8 @@
         android:text="Name:"
         android:id="@+id/registrationNameTextView"
         android:layout_alignTop="@+id/registrationNameEditText"
-        android:layout_alignRight="@+id/registrationAgeTextView"
-        android:layout_alignEnd="@+id/registrationAgeTextView" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -87,11 +64,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/registrationAgeNumberPicker"
-        android:layout_above="@+id/registrationFinishButton"
-        android:layout_alignRight="@+id/registrationFemaleRadioButton"
-        android:layout_alignEnd="@+id/registrationFemaleRadioButton"
-        android:layout_marginRight="47dp"
-        android:layout_marginEnd="47dp" />
+        android:layout_below="@+id/radioGroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -100,20 +75,55 @@
         android:text="Age:"
         android:id="@+id/registrationAgeTextView"
         android:layout_alignTop="@+id/registrationAgeNumberPicker"
-        android:layout_toLeftOf="@+id/registrationFinishButton"
-        android:layout_toStartOf="@+id/registrationFinishButton"
-        android:layout_marginTop="67dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/registrationFinishButton"
+        android:onClick="onProceedRegistrationClick"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/registrationAgeNumberPicker"
-        android:layout_alignEnd="@+id/registrationAgeNumberPicker"
-        android:layout_alignLeft="@+id/registrationMaleRadioButton"
-        android:layout_alignStart="@+id/registrationMaleRadioButton"
-        android:onClick="onProceedRegistrationClick" />
+        android:layout_centerHorizontal="true" />
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radioGroup"
+        android:layout_marginTop="39dp"
+        android:layout_below="@+id/registrationPasswordEditText"
+        android:layout_centerHorizontal="true">
+
+
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Male"
+        android:id="@+id/registrationMaleRadioButton"
+        android:checked="false"
+        android:layout_alignTop="@+id/registrationFemaleRadioButton"
+        android:layout_toLeftOf="@+id/registrationAgeNumberPicker"
+        android:layout_toStartOf="@+id/registrationAgeNumberPicker" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Female"
+        android:id="@+id/registrationFemaleRadioButton"
+        android:checked="false"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Gender:"
+        android:id="@+id/genderTextView"
+        android:layout_alignTop="@+id/radioGroup"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

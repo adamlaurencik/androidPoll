@@ -14,10 +14,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.securepreferences.SecurePreferences;
 
+import cz.muni.fi.pv239.androidpoll.Entities.Gender;
 import cz.muni.fi.pv239.androidpoll.Entities.User;
 import cz.muni.fi.pv239.androidpoll.Managers.impl.UserManagerImpl;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
@@ -30,11 +33,18 @@ import rx.Observer;
  */
 public class RegistrationActivity extends AppCompatActivity {
 
-   private Context that=this;
+    private Context that=this;
+    private NumberPicker agePicker;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+
+        NumberPicker agePicker = (NumberPicker) findViewById(R.id.registrationAgeNumberPicker);
+        agePicker.setMaxValue(110);
+        agePicker.setMinValue(5);
+
+
         final EditText nameEdit= (EditText) findViewById(R.id.registrationNameEditText);
         final EditText passwordEdit= (EditText) findViewById(R.id.registrationPasswordEditText);
         passwordEdit.addTextChangedListener(new TextWatcher() {
@@ -76,6 +86,11 @@ public class RegistrationActivity extends AppCompatActivity {
         final EditText nameEdit= (EditText) findViewById(R.id.registrationNameEditText);
         final EditText passwordEdit= (EditText) findViewById(R.id.registrationPasswordEditText);
         NumberPicker agePick = (NumberPicker) findViewById(R.id.registrationAgeNumberPicker);
+        RadioGroup genderPick = (RadioGroup) findViewById(R.id.radioGroup);
+        int genderId = genderPick.getCheckedRadioButtonId();
+        Gender gender = null;
+        if(genderId == R.id.registrationMaleRadioButton) gender = Gender.MALE;
+        if(genderId == R.id.registrationFemaleRadioButton) gender = Gender.FEMALE;
         if(nameEdit.getText().toString().length()<5){
             showError(nameEdit,"Name must have at least 4 letters");
             return;
@@ -114,7 +129,7 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         };
         UserManager manager=new UserManagerImpl(this);
-        manager.registerNewUser(observer, nameEdit.getText().toString(), passwordEdit.getText().toString(), agePick.getValue(), null);
+        manager.registerNewUser(observer, nameEdit.getText().toString(), passwordEdit.getText().toString(), agePick.getValue(), gender);
     }
 
     public void showError(EditText edit, String errorText){
