@@ -115,8 +115,10 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onNext(ServerResponse<User> userServerResponse) {
                 if(userServerResponse.isSuccessful()){
                     SecurePreferences preferences = new SecurePreferences(that);
-                    preferences.edit().putString("username",userServerResponse.getData().getName());
-                    preferences.edit().putString("password", passwordEdit.getText().toString());
+                    SecurePreferences.Editor editor = preferences.edit();
+                    editor.putString("username",userServerResponse.getData().getName());
+                    editor.putString("password", passwordEdit.getText().toString());
+                    editor.commit();
                     Intent intent = new Intent(RegistrationActivity.this, MenuActivity.class);
                     startActivity(intent);
                     Toast.makeText(that, "Sucessful", Toast.LENGTH_LONG).show();
