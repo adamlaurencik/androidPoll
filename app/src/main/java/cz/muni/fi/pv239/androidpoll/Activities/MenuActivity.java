@@ -4,7 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.GridView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import cz.muni.fi.pv239.androidpoll.Adapters.CategoryAdapter;
+import cz.muni.fi.pv239.androidpoll.Entities.Category;
 import cz.muni.fi.pv239.androidpoll.R;
 
 /**
@@ -12,10 +20,72 @@ import cz.muni.fi.pv239.androidpoll.R;
  */
 public class MenuActivity extends AppCompatActivity {
 
+    private GridView gridCategories;
+    private CategoryAdapter categoryAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        gridCategories = (GridView) findViewById(R.id.categoriesGridView);
+        List<Category> categories = getCategories();
+
+        categoryAdapter = new CategoryAdapter(this, categories);
+        gridCategories.setAdapter(categoryAdapter);
+        gridCategories.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onCategoryClick((Category) categoryAdapter.getItem(position));
+            }
+        });
+        categoryAdapter.setOnItemClickListener(new AdapterView.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCategoryClick(v);///get info about category to open right poll here
+            }
+        });
+
+    }
+    public List<Category> getCategories(){
+        List<Category> categories = new ArrayList<>();
+
+        Category cat = new Category();
+        cat.setName("Sports");
+        categories.add(cat);
+
+        Category cat2 = new Category();
+        cat2.setName("Politics");
+        categories.add(cat2);
+
+        Category cat3 = new Category();
+        cat3.setName("Fashion");
+        categories.add(cat3);
+
+        Category cat4 = new Category();
+        cat4.setName("Science");
+        categories.add(cat4);
+
+        Category cat5 = new Category();
+        cat5.setName("Nature");
+        categories.add(cat5);
+
+        Category cat6 = new Category();
+        cat6.setName("Love");
+        categories.add(cat6);
+
+        Category cat7 = new Category();
+        cat7.setName("Music");
+        categories.add(cat7);
+
+        Category cat8 = new Category();
+        cat8.setName("Fun");
+        categories.add(cat8);
+        return categories;
+    }
+    public void onCategoryClick(Category category){
+        // todooo
+        Intent intent = new Intent(MenuActivity.this, AnswerActivity.class);
+        startActivity(intent);
     }
 
     public void onCategoryClick(View v){
