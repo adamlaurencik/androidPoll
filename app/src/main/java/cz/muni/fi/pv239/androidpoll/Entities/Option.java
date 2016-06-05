@@ -6,6 +6,7 @@ package cz.muni.fi.pv239.androidpoll.Entities;
 public class Option {
     private Long id;
     private String text;
+    private int answers;
     private Long questionId;
 
     public Long getId() {
@@ -15,6 +16,8 @@ public class Option {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public int getNumOfAnswers() {return this.answers;}
 
     public String getText() {
         return text;

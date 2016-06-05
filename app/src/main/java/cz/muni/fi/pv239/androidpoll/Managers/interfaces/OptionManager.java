@@ -12,6 +12,6 @@ import rx.Observer;
 public interface OptionManager {
 
     public void addOption(Observer<ServerResponse<Option>> observer, String text, Question q, String login, String password);
-    public void getQuestionOptions(Observer<ServerResponse<List<Option>>> observer, Question q);
+    public void getQuestionOptions(Observer<ServerResponse<List<Option>>> observer, Long questionId);
     public void deleteOption(Observer<ServerResponse<Option>> observer, Question q, String login, String password);
 }

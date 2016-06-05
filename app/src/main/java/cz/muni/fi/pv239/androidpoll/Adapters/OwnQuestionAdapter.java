@@ -3,6 +3,7 @@ package cz.muni.fi.pv239.androidpoll.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +14,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.securepreferences.SecurePreferences;
 
 import java.util.List;
 
+import cz.muni.fi.pv239.androidpoll.Activities.OwnPollsActivity;
+import cz.muni.fi.pv239.androidpoll.Activities.OwnResultsActivity;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.QuestionManager;
 import cz.muni.fi.pv239.androidpoll.R;
@@ -79,6 +83,16 @@ class ViewHolder{
         questionTextView= (TextView) view.findViewById(R.id.own_poll_item_question);
         deleteButton=(ImageView) view.findViewById(R.id.own_poll_item_delete);
         this.question=question;
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(context,OwnResultsActivity.class);
+                intent.putExtra("questionId",question.getId());
+                intent.putExtra("questionText",question.getQuestion());
+                context.startActivity(intent);
+
+            }
+        });
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

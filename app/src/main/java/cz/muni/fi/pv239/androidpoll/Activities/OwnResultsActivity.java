@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -15,10 +16,20 @@ import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import cz.muni.fi.pv239.androidpoll.Entities.Option;
+import cz.muni.fi.pv239.androidpoll.Entities.Question;
+import cz.muni.fi.pv239.androidpoll.Managers.impl.OptionManagerImpl;
+import cz.muni.fi.pv239.androidpoll.Managers.impl.QuestionManagerImpl;
+import cz.muni.fi.pv239.androidpoll.Managers.interfaces.OptionManager;
+import cz.muni.fi.pv239.androidpoll.Managers.interfaces.QuestionManager;
 import cz.muni.fi.pv239.androidpoll.R;
+import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import rx.Observer;
 
 /**
  * Created by Guest on 4.6.2016.
@@ -27,15 +38,40 @@ public class OwnResultsActivity extends AppCompatActivity {
 
     private RelativeLayout relativeLayout;
     private PieChart statsChart;
-    private float[] data = {10, 10, 20};
-    private String[] names = {"Marek", "Lauro", "Filip"};
-    private String questionText = "Kto je najlepsi?";
+    private List<Entry> data=new ArrayList<>();
+    private List<String> names=new ArrayList<>();
+    //private String questionText = "Kto je najlepsi?";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own_results);
-        makeGraph();
+        TextView questionTextView = (TextView) findViewById(R.id.own_results_question_text);
+        questionTextView.setText(getIntent().getStringExtra("questionText"));
+        OptionManager manager = new OptionManagerImpl();
+        Observer<ServerResponse<List<Option>>> observer = new Observer<ServerResponse<List<Option>>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ServerResponse<List<Option>> listServerResponse) {
+                    if(listServerResponse.isSuccessful()){
+                        for(Option option : listServerResponse.getData()){
+                            names.add(option.getText());
+                            data.add(new Entry(option.getNumOfAnswers(),names.size()-1));
+                        }
+                        makeGraph();
+                    }
+            }
+        };
+        manager.getQuestionOptions(observer,getIntent().getLongExtra("questionId",0));
     }
     private void makeGraph(){
         relativeLayout = (RelativeLayout) findViewById(R.id.ownResultActivityLayout);
@@ -43,9 +79,9 @@ public class OwnResultsActivity extends AppCompatActivity {
 
 
         // s);
-//        relativeLayout.addView(statsChart);
+        relativeLayout.addView(statsChart);
         //statsChart.setUsePercentValues(true); ///set use percent maybe
-        statsChart.setDescription("Answers share");
+        //statsChart.setDescription("Answers share");
         statsChart.setDrawHoleEnabled(true);
         statsChart.setHoleColor(0);
         statsChart.setHoleRadius(7);
@@ -61,7 +97,7 @@ public class OwnResultsActivity extends AppCompatActivity {
             @Override
             public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
                 if (e == null) return;
-                Toast.makeText(OwnResultsActivity.this, names[e.getXIndex()] + " = " + e.getVal() + " answers", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OwnResultsActivity.this, names.get(e.getXIndex()) + " = " + e.getVal() + " answers", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -71,26 +107,15 @@ public class OwnResultsActivity extends AppCompatActivity {
         });
 
         addData();
-
-        Legend l = statsChart.getLegend();
-        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
-        l.setXEntrySpace(7);
-        l.setYEntrySpace(5);
+        // bez legendy? moc sa tam nehodi ked su hodnoty aj vnutri
+        //Legend l = statsChart.getLegend();
+        //l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
+        //l.setXEntrySpace(7);
+        //l.setYEntrySpace(5);
     }
 
     private void addData(){
-        ArrayList<Entry> listY = new ArrayList<>();
-
-        for(int i = 0; i < data.length; i++){
-            listY.add(new Entry(data[i], i));
-        }
-        ArrayList<String> listX = new ArrayList<>();
-
-        for(int i = 0; i < names.length; i++){
-            listX.add(names[i]);
-        }
-
-        PieDataSet dataSet = new PieDataSet(listY, "Answers Share");
+        PieDataSet dataSet = new PieDataSet(data, "Answers Share");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5); // 3?
 
@@ -103,7 +128,7 @@ public class OwnResultsActivity extends AppCompatActivity {
         colors.add(ColorTemplate.getHoloBlue());
 
         dataSet.setColors(colors);
-        PieData pieData = new PieData(listX, dataSet);
+        PieData pieData = new PieData(names, dataSet);
         pieData.setValueFormatter(new LargeValueFormatter());
         //new PercentFormatter());
         pieData.setValueTextSize(11f);

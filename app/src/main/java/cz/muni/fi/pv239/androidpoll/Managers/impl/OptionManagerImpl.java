@@ -41,12 +41,12 @@ public class OptionManagerImpl implements OptionManager {
     }
 
     @Override
-    public void getQuestionOptions(Observer<ServerResponse<List<Option>>> observer, Question q) {
+    public void getQuestionOptions(Observer<ServerResponse<List<Option>>> observer, Long questionId) {
         if(this.api == null){
             //log
             return;
         }
-        Observable<ServerResponse<List<Option>>> observable = api.getQuestionOptions(q.getId());
+        Observable<ServerResponse<List<Option>>> observable = api.getQuestionOptions(questionId);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
