@@ -1,115 +1,117 @@
 package cz.muni.fi.pv239.androidpoll.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 
-import java.util.List;
+import com.securepreferences.SecurePreferences;
 
-import cz.muni.fi.pv239.androidpoll.Entities.Category;
+import cz.muni.fi.pv239.androidpoll.Entities.User;
 import cz.muni.fi.pv239.androidpoll.Managers.impl.UserManagerImpl;
+import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
 import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
-import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerApi;
-import retrofit2.Retrofit;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observer;
 
 public class LoginActivity extends AppCompatActivity {
     private Context that = this;
-    private android.widget.Button button = null;
-    UserManagerImpl userManager = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        final EditText nameEdit= (EditText) findViewById(R.id.loginNameEditText);
+        final EditText passwordEdit= (EditText) findViewById(R.id.loginPasswordEditText);
+        passwordEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                passwordEdit.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://fcb.php5.sk/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-
-
-        ServerApi api = retrofit.create(ServerApi.class);
-        Call<ServerResponse<List<Category>>> call = api.getCategories();
-        call.enqueue(new Callback<ServerResponse<List<Category>>>() {
+        nameEdit.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onResponse(Call<ServerResponse<List<Category>>> call, Response<ServerResponse<List<Category>>> response) {
-                response.body().isSuccessful();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public void onFailure(Call<ServerResponse<List<Category>>> call, Throwable t) {
-                //logging
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nameEdit.setError(null);
             }
-        });
 
-        this.userManager = new UserManagerImpl(retrofit, LoginActivity.this);
-
-        Button loginButton = (Button) findViewById(R.id.loginFinishButton);
-        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                EditText loginE = (EditText) findViewById(R.id.loginNameEditText);
-                EditText  passwordE = (EditText) findViewById(R.id.loginPasswordEditText);
+            public void afterTextChanged(Editable s) {
 
-                String username = loginE.getText().toString();
-                String password = passwordE.getText().toString();
-
-                userManager.loginUser(username, password);
             }
         });
     }
 
     public void onProceedLoginClick(View v){
-        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-        startActivity(intent);
+        final EditText nameEditText= (EditText) findViewById(R.id.loginNameEditText);
+        final EditText passwordEditText= (EditText) findViewById(R.id.loginPasswordEditText);
+        final ProgressDialog dialog = ProgressDialog.show(this, "Logging in", "Please wait...", true);
+        Observer<ServerResponse<User>> observer = new Observer<ServerResponse<User>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ServerResponse<User> userServerResponse) {
+                if(userServerResponse.isSuccessful()){
+                    SecurePreferences preferences = new SecurePreferences(that);
+                    SecurePreferences.Editor editor = preferences.edit();
+                    editor.putString("username",userServerResponse.getData().getName());
+                    editor.putString("password", passwordEditText.getText().toString());
+                    editor.commit();
+                    Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
+                    startActivity(intent);
+                }else{
+                    switch (userServerResponse.getError()){
+                        case ServerResponse.INCORRECT_PASS_MESSAGE: showError(passwordEditText,"Incorrect password"); break;
+                        case ServerResponse.INCORRECT_USERNAME_MESSAGE: showError(nameEditText, "User does not exist"); break;
+                    }
+                }
+                dialog.dismiss();
+            }
+        };
+        UserManager userManager= new UserManagerImpl(this);
+        userManager.loginUser(observer, nameEditText.getText().toString(), passwordEditText.getText().toString());
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void showError(EditText edit, String errorText){
+        Animation shake= AnimationUtils.loadAnimation(that, R.anim.shake);
+        edit.startAnimation(shake);
+        edit.setError(errorText);
     }
 }
