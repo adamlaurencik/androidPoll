@@ -1,10 +1,14 @@
 package cz.muni.fi.pv239.androidpoll.Activities;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.net.UnknownHostException;
 import java.util.List;
 
 import cz.muni.fi.pv239.androidpoll.Entities.Option;
@@ -19,6 +23,7 @@ import rx.Observer;
  * Created by Filip on 28.5.2016.
  */
 public class AnswerActivity extends AppCompatActivity {
+    private Context that=this;
 
     private Question question;
     private List<Option> options;
@@ -36,7 +41,31 @@ public class AnswerActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable e) {
+                if(e instanceof UnknownHostException) {
+                    new AlertDialog.Builder(that)
+                            .setTitle("Connection not found")
+                            .setMessage("Connection to the internet was not found")
+                            .setCancelable(false)
 
+                            .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    System.exit(0);
+                                }
+                            })
+
+                            .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                                    intent.addCategory(Intent.CATEGORY_HOME);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            })
+
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
             }
 
             @Override
