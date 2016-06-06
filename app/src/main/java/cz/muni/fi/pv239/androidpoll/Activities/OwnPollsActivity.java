@@ -15,6 +15,7 @@ import cz.muni.fi.pv239.androidpoll.Managers.impl.QuestionManagerImpl;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.QuestionManager;
 import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import cz.muni.fi.pv239.androidpoll.SharedPrefsContainer;
 import rx.Observer;
 
 /**
@@ -26,7 +27,7 @@ public class OwnPollsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own_polls);
-        SecurePreferences preferences = new SecurePreferences(this);
+        SecurePreferences preferences = SharedPrefsContainer.getSharedPreferences(this);
         final QuestionManager manager=new QuestionManagerImpl();
         final ListView listView = (ListView) findViewById(R.id.own_poll_list_view);
         Observer<ServerResponse<List<Question>>> observer = new Observer<ServerResponse<List<Question>>>() {

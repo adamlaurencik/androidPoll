@@ -22,4 +22,5 @@ public interface QuestionManager {
     public void skipQuestion(Observer<ServerResponse<Question>> observer, Question q, String login, String password);
     public void deleteQuestion(Observer<ServerResponse<Question>> observer, Question question, String login, String password);
     public void getUsersQuestion(Observer<ServerResponse<List<Question>>> observer, String login, String password);
+    public void createQuestionWithOptions(Observer<ServerResponse<Question>> observer, String login, String password, Long categoryId, String text, List<String> options);
 }

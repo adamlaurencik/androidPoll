@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +11,11 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.securepreferences.SecurePreferences;
 
 import java.util.List;
 
-import cz.muni.fi.pv239.androidpoll.Activities.OwnPollsActivity;
 import cz.muni.fi.pv239.androidpoll.Activities.OwnResultsActivity;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.QuestionManager;
@@ -60,40 +56,27 @@ public class OwnQuestionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder viewHolder;
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        QuestionViewHolder questionViewHolder;
         if(convertView==null){
             convertView=inflater.inflate(R.layout.own_poll_item,parent,false);
-            viewHolder=new ViewHolder(convertView,context,getItem(position),manager, position);
-            convertView.setTag(viewHolder);
+            questionViewHolder =new QuestionViewHolder(convertView);
+            convertView.setTag(questionViewHolder);
         }
-        viewHolder = (ViewHolder) convertView.getTag();
+        questionViewHolder = (QuestionViewHolder) convertView.getTag();
         Question question = getItem(position);
-        viewHolder.questionTextView.setText(question.getQuestion());
-        return convertView;
-    }
-}
-
-class ViewHolder{
-    Question question;
-    TextView questionTextView;
-    ImageView deleteButton;
-
-    public ViewHolder(View view, final Context context, final Question question, final QuestionManager manager, final int position){
-        questionTextView= (TextView) view.findViewById(R.id.own_poll_item_question);
-        deleteButton=(ImageView) view.findViewById(R.id.own_poll_item_delete);
-        this.question=question;
-        view.setOnClickListener(new View.OnClickListener() {
+        questionViewHolder.questionTextView.setText(question.getQuestion());
+        convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent= new Intent(context,OwnResultsActivity.class);
-                intent.putExtra("questionId",question.getId());
-                intent.putExtra("questionText",question.getQuestion());
+                Intent intent = new Intent(context, OwnResultsActivity.class);
+                intent.putExtra("questionId", getItem(position).getId());
+                intent.putExtra("questionText", getItem(position).getQuestion());
                 context.startActivity(intent);
 
             }
         });
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        questionViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
                 AlertDialog dialog= new AlertDialog.Builder(context)
@@ -118,14 +101,12 @@ class ViewHolder{
                                     @Override
                                     public void onNext(ServerResponse<Question> questionServerResponse) {
                                         if(questionServerResponse.isSuccessful()){
-                                            ListView listView = (ListView) v.getParent().getParent();
-                                            OwnQuestionAdapter adapter = (OwnQuestionAdapter) listView.getAdapter();
-                                            adapter.ownQuestions.remove(position);
-                                            adapter.notifyDataSetChanged();
+                                            ownQuestions.remove(position);
+                                            notifyDataSetChanged();
                                         }
                                     }
                                 };
-                                manager.deleteQuestion(observer,question,preferences.getString("username",""),preferences.getString("password",""));
+                                manager.deleteQuestion(observer,getItem(position),preferences.getString("username",""),preferences.getString("password",""));
                                 dialog.dismiss();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -134,9 +115,20 @@ class ViewHolder{
                                 dialog.dismiss();
                             }
                         }).create();
-                        dialog.show();
+                dialog.show();
             }
 
         });
+        return convertView;
+    }
+}
+
+class QuestionViewHolder {
+    TextView questionTextView;
+    ImageView deleteButton;
+
+    public QuestionViewHolder(View view){
+        questionTextView= (TextView) view.findViewById(R.id.own_poll_item_question);
+        deleteButton=(ImageView) view.findViewById(R.id.own_poll_item_delete);
     }
 }

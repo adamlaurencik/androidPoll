@@ -35,13 +35,21 @@ public interface ServerApi {
             @Query("login") String login,
             @Query("password") String password);
 
-
     @POST("/homepage/create-question")
     public Observable<ServerResponse<Question>> createQuestion(
             @Query("login") String login,
             @Query("categoryId") Long id,
             @Query("text") String text,
             @Query("password") String password);
+
+    @POST("/homepage/create-question-with-options")
+    public Observable<ServerResponse<Question>> createQuestionWithOptions(
+            @Query("login") String login,
+            @Query("categoryId") Long id,
+            @Query("text") String text,
+            @Query("password") String password,
+            @Query("options[]") List<String> options
+    );
 
     @POST("/homepage/delete-question")
     public Observable<ServerResponse<Question>> deleteQuestion(

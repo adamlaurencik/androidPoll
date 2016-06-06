@@ -13,5 +13,6 @@ public class AndroidPollApplication extends Application {
     public void onCreate() {
         super.onCreate();
         JodaTimeAndroid.init(this);
+        SharedPrefsContainer.getSharedPreferences(this);
     }
 }

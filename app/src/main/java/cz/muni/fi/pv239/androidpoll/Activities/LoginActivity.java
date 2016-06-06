@@ -23,6 +23,7 @@ import cz.muni.fi.pv239.androidpoll.Managers.impl.UserManagerImpl;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.UserManager;
 import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import cz.muni.fi.pv239.androidpoll.SharedPrefsContainer;
 import rx.Observer;
 
 public class LoginActivity extends AppCompatActivity {
@@ -89,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onNext(ServerResponse<User> userServerResponse) {
                 if(userServerResponse.isSuccessful()){
-                    SecurePreferences preferences = new SecurePreferences(that);
+                    SecurePreferences preferences = SharedPrefsContainer.getSharedPreferences(that);
                     SecurePreferences.Editor editor = preferences.edit();
                     editor.putString("username",userServerResponse.getData().getName());
                     editor.putString("password", passwordEditText.getText().toString());

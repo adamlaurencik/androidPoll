@@ -95,4 +95,11 @@ public class QuestionManagerImpl implements QuestionManager{
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
+
+    @Override
+    public void createQuestionWithOptions(Observer<ServerResponse<Question>> observer, String login, String password, Long categoryId, String text, List<String> options){
+        Observable<ServerResponse<Question>> observable = api.createQuestionWithOptions(login, categoryId, text, password, options);
+        observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
 }

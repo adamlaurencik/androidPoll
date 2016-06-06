@@ -1,100 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.CreateActivity"
-    tools:showIn="@layout/activity_create">
-
-    <EditText
+    tools:showIn="@layout/activity_create"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/questionEditText"
-        android:layout_marginTop="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/scrollView">
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/categorySpinner"
-        android:layout_below="@+id/questionEditText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="46dp"
-        android:layout_alignLeft="@+id/questionEditText"
-        android:layout_alignStart="@+id/questionEditText" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/AnswerEditText1"
-        android:layout_below="@+id/categorySpinner"
-        android:layout_alignLeft="@+id/categorySpinner"
-        android:layout_alignStart="@+id/categorySpinner" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/AnswerEditText2"
-        android:layout_centerVertical="true"
-        android:layout_alignLeft="@+id/AnswerEditText1"
-        android:layout_alignStart="@+id/AnswerEditText1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Question"
+                android:id="@+id/skipButton"
+                android:layout_alignParentTop="true"
+                android:layout_alignLeft="@+id/categoryTextView"
+                android:layout_alignStart="@+id/categoryTextView"
+                android:layout_weight="1" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="create"
-        android:id="@+id/proceedCreateButton"
-        android:layout_below="@+id/AnswerEditText2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
-        android:onClick="onProceedCreateClick" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/create_question_question_edit_text"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Question"
-        android:id="@+id/skipButton"
-        android:layout_alignTop="@+id/questionEditText"
-        android:layout_alignLeft="@+id/answerTextView1"
-        android:layout_alignStart="@+id/answerTextView1" />
+        </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Answer"
-        android:id="@+id/answerTextView1"
-        android:layout_alignBaseline="@+id/AnswerEditText1"
-        android:layout_alignBottom="@+id/AnswerEditText1"
-        android:layout_toLeftOf="@+id/proceedCreateButton"
-        android:layout_toStartOf="@+id/proceedCreateButton" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Answer"
-        android:id="@+id/answerTextView2"
-        android:layout_alignTop="@+id/AnswerEditText2"
-        android:layout_alignLeft="@+id/answerTextView1"
-        android:layout_alignStart="@+id/answerTextView1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Category"
+                android:id="@+id/categoryTextView"
+                android:layout_alignTop="@+id/categorySpinner"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Category"
-        android:id="@+id/categoryTextView"
-        android:layout_alignTop="@+id/categorySpinner"
-        android:layout_alignLeft="@+id/answerTextView1"
-        android:layout_alignStart="@+id/answerTextView1" />
-</RelativeLayout>
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/categorySpinner"
+                android:layout_below="@+id/skipButton"
+                android:layout_alignLeft="@+id/questionEditText"
+                android:layout_alignStart="@+id/questionEditText"
+                android:layout_alignRight="@+id/questionEditText"
+                android:layout_alignEnd="@+id/questionEditText" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Options:"
+            android:id="@+id/textView2"
+            android:layout_alignTop="@+id/categorySpinner"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/create_question_options_list"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/add_option_button"
+            android:layout_below="@+id/categorySpinner" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+ Answer"
+            android:id="@+id/add_option_button"
+            android:onClick="addNewOption"
+            android:nestedScrollingEnabled="false"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/categorySpinner"
+            android:layout_alignEnd="@+id/categorySpinner"
+            android:layout_gravity="right"
+            android:layout_marginRight="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="create"
+            android:id="@+id/proceedCreateButton"
+            android:onClick="onProceedCreateClick"
+            android:layout_alignParentBottom="true"
+            android:layout_alignLeft="@+id/categorySpinner"
+            android:layout_alignStart="@+id/categorySpinner"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+</LinearLayout>
