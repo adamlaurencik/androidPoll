@@ -178,6 +178,6 @@ public class OwnResultsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        finish();
+        super.onBackPressed();
     }
 }

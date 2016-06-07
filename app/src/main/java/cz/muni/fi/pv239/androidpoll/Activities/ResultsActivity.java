@@ -137,6 +137,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        super.onBackPressed();
         Intent intent = new Intent(ResultsActivity.this, MenuActivity.class);
         startActivity(intent);
     }
