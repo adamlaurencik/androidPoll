@@ -11,12 +11,14 @@ import android.view.View;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import cz.muni.fi.pv239.androidpoll.Entities.Category;
 import cz.muni.fi.pv239.androidpoll.Entities.Option;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Managers.impl.QuestionManagerImpl;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.QuestionManager;
 import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import cz.muni.fi.pv239.androidpoll.SharedPrefsContainer;
 import rx.Observer;
 
 /**
@@ -73,7 +75,13 @@ public class AnswerActivity extends AppCompatActivity {
 
             }
         };
-       // manager.getRandomQuestion(observer,);
+
+        Category category = new Category();
+        category.setName(this.getIntent().getStringExtra("Category.id"));
+        category.setId(this.getIntent().getLongExtra("Category.id", 0));
+        manager.getRandomQuestion(observer, category,
+                SharedPrefsContainer.getSharedPreferences(that).getString("username",""),
+                SharedPrefsContainer.getSharedPreferences(that).getString("password",""));
     }
     public void onProceedAnswerClick(View v){
         Intent intent = new Intent(AnswerActivity.this, ResultsActivity.class);

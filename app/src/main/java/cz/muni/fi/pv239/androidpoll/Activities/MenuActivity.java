@@ -134,8 +134,9 @@ public class MenuActivity extends AppCompatActivity {
         return categories;
     }
     public void onCategoryClick(Category category){
-        // todooo
         Intent intent = new Intent(MenuActivity.this, AnswerActivity.class);
+        intent.putExtra("category.id",category.getId());
+        intent.putExtra("category.name",category.getName());
         startActivity(intent);
     }
 
