@@ -76,7 +76,7 @@ public class AnswerActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onNext(ServerResponse<Question> questionServerResponse) {
+            public void onNext(final ServerResponse<Question> questionServerResponse) {
                 OptionManager optionManger = new OptionManagerImpl();
                 Observer<ServerResponse<List<Option>>> optionObserver = new Observer<ServerResponse<List<Option>>>() {
                     @Override
@@ -91,7 +91,7 @@ public class AnswerActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ServerResponse<List<Option>> optionList) {
-                        AnswerAdapter answerAdapter = new AnswerAdapter(that,optionList.getData());
+                        AnswerAdapter answerAdapter = new AnswerAdapter(that,optionList.getData(),questionServerResponse.getData());
                         ListView listView = (ListView) findViewById(R.id.answer_list_view);
                         listView.setAdapter(answerAdapter);
                     }

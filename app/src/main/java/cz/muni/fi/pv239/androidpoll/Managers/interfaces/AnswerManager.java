@@ -13,5 +13,5 @@ public interface AnswerManager {
 
     public void getNumberOfAnswers(Observer<ServerResponse<Long>> observer, Option option);
     public void answerQuestion(Observer<ServerResponse<Answer>> observer, String login,
-                               Question question, Option option, String password);
+                               Long questionId, Option option, String password);
 }
