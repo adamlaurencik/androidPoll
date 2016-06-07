@@ -34,7 +34,7 @@ public class OwnPollsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_own_polls);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(SharedPrefsContainer.getSharedPreferences(that).getString("username","Your") + "´s Polls");
+        toolbar.setTitle(SharedPrefsContainer.getSharedPreferences(that).getString("username", "Your") + "´s Polls");
 
         SecurePreferences preferences = SharedPrefsContainer.getSharedPreferences(this);
         final QuestionManager manager=new QuestionManagerImpl();
@@ -85,7 +85,7 @@ public class OwnPollsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        finish();
+        super.onBackPressed();
     }
 }
 

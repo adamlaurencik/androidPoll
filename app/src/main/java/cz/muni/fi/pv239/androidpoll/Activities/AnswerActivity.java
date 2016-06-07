@@ -111,8 +111,8 @@ public class AnswerActivity extends AppCompatActivity {
             }
         };
         manager.getRandomQuestion(observer, category,
-                SharedPrefsContainer.getSharedPreferences(that).getString("username",""),
-                SharedPrefsContainer.getSharedPreferences(that).getString("password",""));
+                SharedPrefsContainer.getSharedPreferences(that).getString("username", ""),
+                SharedPrefsContainer.getSharedPreferences(that).getString("password", ""));
     }
 
     public void onSkipClick(View v){
@@ -164,6 +164,7 @@ public class AnswerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        super.onBackPressed();
         Intent intent = new Intent(AnswerActivity.this, MenuActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
