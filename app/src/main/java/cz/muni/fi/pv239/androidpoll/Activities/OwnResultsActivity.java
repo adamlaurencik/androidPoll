@@ -179,8 +179,5 @@ public class OwnResultsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed(){
         finish();
-        Intent intent = new Intent(OwnResultsActivity.this, MenuActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 }
