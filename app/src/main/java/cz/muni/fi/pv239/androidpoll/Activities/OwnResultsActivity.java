@@ -71,7 +71,7 @@ public class OwnResultsActivity extends AppCompatActivity {
 
                             .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
-                                    System.exit(0);
+                                    recreate();
                                 }
                             })
 
