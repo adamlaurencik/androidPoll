@@ -50,7 +50,7 @@ public class ResultsActivity extends AppCompatActivity {
         question.setQuestion(getIntent().getStringExtra("question.name"));
 
         category = new Category();
-        category.setId(getIntent().getLongExtra("category.id",0));
+        category.setId(getIntent().getLongExtra("category.id", 0));
         category.setName(getIntent().getStringExtra("category.name"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -142,7 +142,10 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     public void onNextClick(View v){
+        finish();
         Intent intent = new Intent(ResultsActivity.this, AnswerActivity.class);
+        intent.putExtra("Category.id",category.getId());
+        intent.putExtra("Category.name",category.getName());
         startActivity(intent);
     }
 
