@@ -43,7 +43,10 @@ public class AnswerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(""); // CATEGORY NAME
+        final Category category = new Category();
+        category.setName(this.getIntent().getStringExtra("Category.name"));
+        category.setId(this.getIntent().getLongExtra("Category.id", 0));
+        toolbar.setTitle(category.getName()); // CATEGORY NAME
         QuestionManager manager= new QuestionManagerImpl();
         final Observer<ServerResponse<Question>> observer= new Observer<ServerResponse<Question>>() {
             @Override
@@ -96,7 +99,7 @@ public class AnswerActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(ServerResponse<List<Option>> optionList) {
-                        AnswerAdapter answerAdapter = new AnswerAdapter(that,optionList.getData(),questionServerResponse.getData());
+                        AnswerAdapter answerAdapter = new AnswerAdapter(that,optionList.getData(),questionServerResponse.getData(), category);
                         ListView listView = (ListView) findViewById(R.id.answer_list_view);
                         listView.setAdapter(answerAdapter);
                     }
@@ -107,9 +110,6 @@ public class AnswerActivity extends AppCompatActivity {
                 question = questionServerResponse.getData();
             }
         };
-        Category category = new Category();
-        category.setName(this.getIntent().getStringExtra("Category.name"));
-        category.setId(this.getIntent().getLongExtra("Category.id", 0));
         manager.getRandomQuestion(observer, category,
                 SharedPrefsContainer.getSharedPreferences(that).getString("username",""),
                 SharedPrefsContainer.getSharedPreferences(that).getString("password",""));

@@ -24,6 +24,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
+import cz.muni.fi.pv239.androidpoll.Entities.Category;
+import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.R;
 
 /**
@@ -36,11 +38,20 @@ public class ResultsActivity extends AppCompatActivity {
     private float[] data = {10, 10, 20};
     private String[] names = {"Marek", "Lauro", "Filip"};
     private String questionText = "Kto je najlepsi?";
+    private Category category;
+    private Question question;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+        question = new Question();
+        question.setId(getIntent().getLongExtra("question.Id", 0));
+        question.setQuestion(getIntent().getStringExtra("question.name"));
+
+        category = new Category();
+        category.setId(getIntent().getLongExtra("category.id",0));
+        category.setName(getIntent().getStringExtra("category.name"));
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Results");

@@ -18,6 +18,7 @@ import java.util.List;
 
 import cz.muni.fi.pv239.androidpoll.Activities.ResultsActivity;
 import cz.muni.fi.pv239.androidpoll.Entities.Answer;
+import cz.muni.fi.pv239.androidpoll.Entities.Category;
 import cz.muni.fi.pv239.androidpoll.Entities.Option;
 import cz.muni.fi.pv239.androidpoll.Entities.Question;
 import cz.muni.fi.pv239.androidpoll.Managers.impl.AnswerManagerImpl;
@@ -35,12 +36,14 @@ public class AnswerAdapter extends BaseAdapter {
     Question question;
     List<Option> optionList = new ArrayList<>();
     private LayoutInflater inflater;
+    Category category;
 
-    public AnswerAdapter(Context context, List<Option> optionList, Question question){
+    public AnswerAdapter(Context context, List<Option> optionList, Question question, Category category){
         this.context=context;
         this.optionList=optionList;
         inflater= LayoutInflater.from(context);
         this.question=question;
+        this.category=category;
     }
     @Override
     public int getCount() {
@@ -85,8 +88,10 @@ public class AnswerAdapter extends BaseAdapter {
                     @Override
                     public void onNext(ServerResponse<Answer> answerServerResponse) {
                         Intent intent = new Intent(context, ResultsActivity.class);
-                        intent.putExtra("question.Id",question.getId());
-                        intent.putExtra("question.name",question.getQuestion());
+                        intent.putExtra("question.Id", question.getId());
+                        intent.putExtra("question.name", question.getQuestion());
+                        intent.putExtra("category.id", category.getId());
+                        intent.putExtra("category.name", category.getName());
                         context.startActivity(intent);
                     }
                 };
