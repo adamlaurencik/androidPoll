@@ -111,11 +111,9 @@ public class OwnResultsActivity extends AppCompatActivity {
     }
     private void makeGraph(){
         relativeLayout = (RelativeLayout) findViewById(R.id.ownResultActivityLayout);
-        statsChart = (PieChart) findViewById(R.id.pieStats);//new PieChart(thi
+        statsChart = (PieChart) findViewById(R.id.pieStats);
 
-
-        // s);
-        relativeLayout.addView(statsChart);
+        //relativeLayout.addView(statsChart);
         //statsChart.setUsePercentValues(true); ///set use percent maybe
         //statsChart.setDescription("Answers share");
         statsChart.setDrawHoleEnabled(true);
