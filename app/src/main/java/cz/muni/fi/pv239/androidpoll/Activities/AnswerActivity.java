@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.data.Entry;
+
 import java.net.UnknownHostException;
 import java.util.List;
 
@@ -100,11 +102,11 @@ public class AnswerActivity extends AppCompatActivity {
                     }
                 };
                 optionManger.getQuestionOptions(optionObserver,questionServerResponse.getData().getId());
-                TextView question = (TextView) findViewById(R.id.questionTextView);
-                question.setText(questionServerResponse.getData().getQuestion());
+                TextView question2 = (TextView) findViewById(R.id.questionTextView);
+                question2.setText(questionServerResponse.getData().getQuestion());
+                question = questionServerResponse.getData();
             }
         };
-
         Category category = new Category();
         category.setName(this.getIntent().getStringExtra("Category.name"));
         category.setId(this.getIntent().getLongExtra("Category.id", 0));
@@ -114,6 +116,48 @@ public class AnswerActivity extends AppCompatActivity {
     }
 
     public void onSkipClick(View v){
+        QuestionManagerImpl manager = new QuestionManagerImpl();
+        Observer<ServerResponse<Question>> observer = new Observer<ServerResponse<Question>>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(e instanceof UnknownHostException) {
+                    new AlertDialog.Builder(that)
+                            .setTitle("Connection not found")
+                            .setMessage("Connection to the internet was not found")
+                            .setCancelable(false)
+
+                            .setPositiveButton("Try Again", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    recreate();
+                                }
+                            })
+
+                            .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    finish();
+                                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                                    intent.addCategory(Intent.CATEGORY_HOME);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
+                                }
+                            })
+
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            }
+
+            @Override
+            public void onNext(ServerResponse<Question> listServerResponse) {
+
+            }
+        };
+        manager.skipQuestion(observer,question,SharedPrefsContainer.getSharedPreferences(that).getString("username",null),SharedPrefsContainer.getSharedPreferences(that).getString("password",null));
         Intent intent = new Intent(AnswerActivity.this, AnswerActivity.class);
         startActivity(intent);
     }
