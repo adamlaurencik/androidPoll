@@ -40,12 +40,12 @@ public class AnswerManagerImpl implements AnswerManager{
     }
 
     @Override
-    public void answerQuestion(Observer<ServerResponse<Answer>> observer, String login, Question question, Option option, String password) {
+    public void answerQuestion(Observer<ServerResponse<Answer>> observer, String login, Long questionId, Option option, String password) {
         if(this.api == null){
             //log
             return;
         }
-        Observable<ServerResponse<Answer>> observable = api.answer(login, question.getId(), option.getId(), password);
+        Observable<ServerResponse<Answer>> observable = api.answer(login, questionId, option.getId(), password);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
     }
