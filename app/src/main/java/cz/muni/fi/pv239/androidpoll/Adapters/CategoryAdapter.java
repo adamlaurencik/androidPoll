@@ -15,6 +15,7 @@ import cz.muni.fi.pv239.androidpoll.Activities.MenuActivity;
 import cz.muni.fi.pv239.androidpoll.Entities.Category;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
+import static android.support.v4.content.ContextCompat.startActivities;
 
 /**
  * Created by Guest on 5.6.2016.
@@ -35,7 +36,7 @@ public class CategoryAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
+    public Category getItem(int position) {
         return categories.get(position);
     }
 
@@ -48,14 +49,22 @@ public class CategoryAdapter extends BaseAdapter{
         onClickListener = listener;
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         final Button button;
         if(convertView == null){
             button = new Button(context);
-            Category category = (Category) getItem(position);
+            final Category category = (Category) getItem(position);
             button.setTag("#" + category.getName());
             button.setText("#" + category.getName());
-            button.setOnClickListener(onClickListener);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, AnswerActivity.class);
+                    intent.putExtra("Category.id",category.getId());
+                    intent.putExtra("Category.name",category.getName());
+                    context.startActivity(intent);
+                }
+            });
         } else {
             button = (Button) convertView;
         }
