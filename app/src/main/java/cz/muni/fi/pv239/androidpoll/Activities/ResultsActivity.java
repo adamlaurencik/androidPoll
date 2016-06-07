@@ -134,4 +134,10 @@ public class ResultsActivity extends AppCompatActivity {
         Intent intent = new Intent(ResultsActivity.this, AnswerActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(ResultsActivity.this, MenuActivity.class);
+        startActivity(intent);
+    }
 }

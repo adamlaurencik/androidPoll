@@ -144,4 +144,9 @@ public class LoginActivity extends AppCompatActivity {
         edit.startAnimation(shake);
         edit.setError(errorText);
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }

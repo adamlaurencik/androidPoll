@@ -117,4 +117,11 @@ public class AnswerActivity extends AppCompatActivity {
         Intent intent = new Intent(AnswerActivity.this, AnswerActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(AnswerActivity.this, MenuActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }

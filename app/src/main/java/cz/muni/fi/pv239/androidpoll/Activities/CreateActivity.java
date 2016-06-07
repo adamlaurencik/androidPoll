@@ -174,6 +174,11 @@ public class CreateActivity extends AppCompatActivity {
             }
         };
         QuestionManager manager = new QuestionManagerImpl();
-        manager.createQuestionWithOptions(observer,preferences.getString("username",""),preferences.getString("password",""),selectedCategoryId,questionText,stringOptions);
+        manager.createQuestionWithOptions(observer, preferences.getString("username", ""), preferences.getString("password", ""), selectedCategoryId, questionText, stringOptions);
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }

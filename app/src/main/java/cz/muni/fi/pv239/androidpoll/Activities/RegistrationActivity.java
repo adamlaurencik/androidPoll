@@ -172,4 +172,9 @@ public class RegistrationActivity extends AppCompatActivity {
         edit.startAnimation(shake);
         edit.setError(errorText);
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }

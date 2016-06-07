@@ -82,5 +82,10 @@ public class OwnPollsActivity extends AppCompatActivity {
         };
         manager.getUsersQuestion(observer, preferences.getString("username", ""), preferences.getString("password", ""));
     }
+
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
 }
 
