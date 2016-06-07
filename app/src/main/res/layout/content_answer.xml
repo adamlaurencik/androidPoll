@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.AnswerActivity"
-    tools:showIn="@layout/activity_answer">
+    tools:showIn="@layout/activity_answer" android:layout_marginTop="56dp">
 
     <Button
         style="?android:attr/buttonStyleSmall"

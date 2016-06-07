@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import cz.muni.fi.pv239.androidpoll.Managers.interfaces.OptionManager;
 import cz.muni.fi.pv239.androidpoll.Managers.interfaces.QuestionManager;
 import cz.muni.fi.pv239.androidpoll.R;
 import cz.muni.fi.pv239.androidpoll.ServerConnection.ServerResponse;
+import cz.muni.fi.pv239.androidpoll.SharedPrefsContainer;
 import rx.Observer;
 
 /**
@@ -52,6 +54,10 @@ public class OwnResultsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own_results);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Results");
+
         TextView questionTextView = (TextView) findViewById(R.id.own_results_question_text);
         questionTextView.setText(getIntent().getStringExtra("questionText"));
         OptionManager manager = new OptionManagerImpl();

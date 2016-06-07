@@ -3,6 +3,7 @@ package cz.muni.fi.pv239.androidpoll.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.securepreferences.SecurePreferences;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Strawberry Polls");
     }
 
     public void onLogInClick(View v){

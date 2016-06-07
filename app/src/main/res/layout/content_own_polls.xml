@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.OwnPollsActivity"
-    tools:showIn="@layout/activity_own_polls">
+    tools:showIn="@layout/activity_own_polls" android:layout_marginTop="56dp">
 
 
 <ListView

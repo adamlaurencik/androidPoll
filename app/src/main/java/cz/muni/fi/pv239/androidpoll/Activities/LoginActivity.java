@@ -39,7 +39,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        toolbar.setTitle("Log in");
+
         final EditText nameEdit= (EditText) findViewById(R.id.loginNameEditText);
         final EditText passwordEdit= (EditText) findViewById(R.id.loginPasswordEditText);
         passwordEdit.addTextChangedListener(new TextWatcher() {

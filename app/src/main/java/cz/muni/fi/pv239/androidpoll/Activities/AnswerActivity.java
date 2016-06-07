@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.net.UnknownHostException;
@@ -32,6 +33,8 @@ public class AnswerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_answer);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(""); // CATEGORY NAME
         QuestionManager manager= new QuestionManagerImpl();
         Observer<ServerResponse<Question>> observer= new Observer<ServerResponse<Question>>() {
             @Override
