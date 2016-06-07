@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.ResultsActivity"
-    tools:showIn="@layout/activity_own_results">
+    tools:showIn="@layout/activity_own_results" android:layout_marginTop="56dp">
 
     <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"

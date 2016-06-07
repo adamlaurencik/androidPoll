@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.ListView;
 
 import com.securepreferences.SecurePreferences;
@@ -31,6 +32,10 @@ public class OwnPollsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own_polls);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(SharedPrefsContainer.getSharedPreferences(that).getString("username","Your") + "´s Polls");
+
         SecurePreferences preferences = SharedPrefsContainer.getSharedPreferences(this);
         final QuestionManager manager=new QuestionManagerImpl();
         final ListView listView = (ListView) findViewById(R.id.own_poll_list_view);
@@ -76,6 +81,11 @@ public class OwnPollsActivity extends AppCompatActivity {
             }
         };
         manager.getUsersQuestion(observer, preferences.getString("username", ""), preferences.getString("password", ""));
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }
 

@@ -3,16 +3,15 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.MenuActivity"
-    tools:showIn="@layout/activity_menu">
+    tools:showIn="@layout/activity_menu" >
 
-    <Button
+    <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Name of category will be here"
-        android:id="@+id/toAnswerButton"
-        android:onClick="onCategoryClick"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/categoriesGridView"
+        android:layout_centerHorizontal="true"
+        android:numColumns="2"
+        android:layout_marginTop="56dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -20,9 +19,11 @@
         android:text="My Polls"
         android:id="@+id/myPollsButton"
         android:onClick="onMyPollsClick"
+        android:layout_marginLeft="64dp"
+        android:layout_marginStart="64dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/toAnswerButton"
-        android:layout_alignStart="@+id/toAnswerButton" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -31,15 +32,9 @@
         android:id="@+id/createPollButton"
         android:onClick="onCreateClick"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/toAnswerButton"
-        android:layout_alignEnd="@+id/toAnswerButton" />
+        android:layout_toRightOf="@+id/myPollsButton"
+        android:layout_toEndOf="@+id/myPollsButton"
+        android:layout_marginLeft="48dp"
+        android:layout_marginStart="48dp" />
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/categoriesGridView"
-        android:layout_below="@+id/toAnswerButton"
-        android:layout_centerHorizontal="true"
-        android:numColumns="2"
-        android:layout_above="@+id/createPollButton" />
 </RelativeLayout>

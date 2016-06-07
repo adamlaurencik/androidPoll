@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.ResultsActivity"
-    tools:showIn="@layout/activity_results">
+    tools:showIn="@layout/activity_results" android:layout_marginTop="56dp">
 
     <Button
         android:layout_width="wrap_content"
