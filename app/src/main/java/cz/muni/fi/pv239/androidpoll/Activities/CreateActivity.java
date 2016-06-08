@@ -7,8 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -47,11 +51,12 @@ import rx.Observer;
 public class CreateActivity extends AppCompatActivity {
 
     private Context that=this;
-    private List<EditText> answers = new ArrayList<EditText>();
     private Map<String,Long> categoryMap = new HashMap<>();
     private long selectedCategoryId= -1;
     CreateOptionAdapter adapter;
+    ListView optionsListView;
     List<Option> optionsList = new ArrayList<>();
+    EditText questionEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,23 @@ public class CreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("New Poll");
+        questionEditText = (EditText) findViewById(R.id.create_question_question_edit_text);
+        questionEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                questionEditText.setError(null);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         Observer<ServerResponse<List<Category>>> observer = new Observer<ServerResponse<List<Category>>>() {
             @Override
             public void onCompleted() {
@@ -125,34 +146,45 @@ public class CreateActivity extends AppCompatActivity {
         };
         CategoryManager manager= new CategoryManagerImpl();
         manager.getAllCategories(observer);
-        ListView optionsListView = (ListView) findViewById(R.id.create_question_options_list);
-        optionsList.add(new Option());
-        optionsList.add(new Option());
+        optionsListView = (ListView) findViewById(R.id.create_question_options_list);
         adapter = new CreateOptionAdapter(this,optionsList);
         optionsListView.setAdapter(adapter);
+        addNewOption(optionsListView);
+        addNewOption(optionsListView);
 
     }
 
     public void addNewOption(View v){
-        optionsList.add(new Option());
+        Option option = new Option();
+        option.setId(((long) optionsList.size()));
+        optionsList.add(option);
         adapter.notifyDataSetChanged();
     }
 
     public void onProceedCreateClick(View v){
-        EditText questionEditText= (EditText) findViewById(R.id.create_question_question_edit_text);
+        boolean sucess=true;
+        boolean optionsSuccess=true;
         String questionText=questionEditText.getText().toString();
         if(questionText.length()==0){
             Toast.makeText(this,"Question text must be filled!",Toast.LENGTH_SHORT).show();
-            return;
+            Animation shake= AnimationUtils.loadAnimation(that, R.anim.shake);
+            questionEditText.startAnimation(shake);
+            sucess=false;
         }
         List<String> stringOptions = new ArrayList<>();
         for(Option option : optionsList){
             if(option.getText()==null || option.getText().length()==0){
-                Toast.makeText(this,"All options must be filled!",Toast.LENGTH_SHORT).show();
-                return;
+                optionsSuccess=false;
+                Animation shake= AnimationUtils.loadAnimation(that, R.anim.shake);
+                optionsListView.getChildAt(option.getId().intValue()).startAnimation(shake);
             }
             stringOptions.add(option.getText());
         }
+        if(!optionsSuccess){
+            Toast.makeText(this, "All options must be filled!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!sucess) return;
         SecurePreferences preferences = SharedPrefsContainer.getSharedPreferences(that);
         Observer<ServerResponse<Question>> observer = new Observer<ServerResponse<Question>>() {
             @Override

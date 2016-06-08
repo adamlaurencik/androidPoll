@@ -101,9 +101,14 @@ public class OwnResultsActivity extends AppCompatActivity {
                     if(listServerResponse.isSuccessful()){
                         for(Option option : listServerResponse.getData()){
                             names.add(option.getText());
-                            data.add(new Entry(option.getNumOfAnswers(),names.size()-1));
+                            if(option.getNumOfAnswers()!=0) data.add(new Entry(option.getNumOfAnswers(),names.size()-1));
                         }
-                        makeGraph();
+                        if(data.isEmpty()){
+                            OwnResultsActivity.this.setContentView(R.layout.content_unanswered_question);
+                        }else{
+                            makeGraph();
+                        }
+
                     }
             }
         };

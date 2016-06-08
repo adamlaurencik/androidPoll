@@ -52,45 +52,39 @@ public class CreateOptionAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        OptionViewHolder optionViewHolder;
-        if(convertView==null){
+        if(convertView==null || convertView.getTag()==null){
+            OptionViewHolder optionViewHolder;
             convertView=inflater.inflate(R.layout.create_option_item,parent,false);
             optionViewHolder =new OptionViewHolder(convertView,context,position);
             convertView.setTag(optionViewHolder);
         }
+        final OptionViewHolder optionViewHolder;
         optionViewHolder = (OptionViewHolder) convertView.getTag();
         optionViewHolder.optionTextView.setText(position+":");
-        optionViewHolder.optionEditText.addTextChangedListener(new TextWatcher() {
+        optionViewHolder.optionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                getItem(position).setText(s.toString());
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    EditText editTxt = (EditText) v;
+                    options.get(position).setText(editTxt.getText().toString());
+                }
             }
         });
         optionViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (getOptions().size() > 2) {
+                    optionViewHolder.optionEditText.setOnClickListener(null);
                     getOptions().remove(position);
                     notifyDataSetChanged();
                 }else{
-                    Toast.makeText(context,"You have to have at least 2 answers!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(context,"You have to create at least 2 answers!",Toast.LENGTH_LONG).show();
                 }
             }
         });
         return convertView;
     }
 }
-
 class OptionViewHolder{
     int optionNumber;
     TextView optionTextView;

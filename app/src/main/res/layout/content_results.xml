@@ -14,8 +14,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="46dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/skipButton"
-        android:layout_alignStart="@+id/skipButton"
+        android:layout_alignLeft="@+id/results_text_of_question"
+        android:layout_alignStart="@+id/results_text_of_question"
         android:onClick="onNextClick" />
 
     <Button
@@ -24,8 +24,8 @@
         android:text="Menu"
         android:id="@+id/menuButton"
         android:layout_alignTop="@+id/nextButton"
-        android:layout_alignRight="@+id/skipButton"
-        android:layout_alignEnd="@+id/skipButton"
+        android:layout_alignRight="@+id/results_text_of_question"
+        android:layout_alignEnd="@+id/results_text_of_question"
         android:onClick="onMenuClick" />
 
     <com.github.mikephil.charting.charts.PieChart
@@ -35,14 +35,14 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/nextButton"
-        android:layout_below="@+id/skipButton" />
+        android:layout_below="@+id/results_text_of_question" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Text of the question will be here"
-        android:id="@+id/skipButton"
+        android:id="@+id/results_text_of_question"
         android:layout_marginTop="33dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />

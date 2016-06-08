@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -43,11 +44,9 @@ import rx.Observer;
  */
 public class ResultsActivity extends AppCompatActivity {
 
-    private RelativeLayout relativeLayout;
     private PieChart statsChart;
-    private String questionText = "Kto je najlepsi?";
-    private Category category;
     private Question question;
+    private Category category;
     private Context that = this;
     private List<Entry> data=new ArrayList<>();
     private List<String> names=new ArrayList<>();
@@ -59,7 +58,8 @@ public class ResultsActivity extends AppCompatActivity {
         question = new Question();
         question.setId(getIntent().getLongExtra("question.Id", 0));
         question.setQuestion(getIntent().getStringExtra("question.name"));
-
+        TextView questionTextView= (TextView) findViewById(R.id.results_text_of_question);
+        questionTextView.setText(question.getQuestion());
         category = new Category();
         category.setId(getIntent().getLongExtra("category.id", 0));
         category.setName(getIntent().getStringExtra("category.name"));
@@ -112,13 +112,13 @@ public class ResultsActivity extends AppCompatActivity {
             }
         };
         manager.getQuestionOptions(observer,question.getId());
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Results");
 
         makeGraph();
     }
     private void makeGraph(){
-        relativeLayout = (RelativeLayout) findViewById(R.id.ownResultActivityLayout);
         statsChart = (PieChart) findViewById(R.id.pieStats);
 
         //relativeLayout.addView(statsChart);

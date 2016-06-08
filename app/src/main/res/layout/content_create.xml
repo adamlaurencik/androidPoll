@@ -81,6 +81,7 @@
             android:id="@+id/create_question_options_list"
             android:layout_alignParentLeft="true"
             android:descendantFocusability="afterDescendants"
+            android:focusable="false"
             android:layout_alignParentStart="true"
             android:layout_above="@+id/add_option_button"
             android:layout_below="@+id/categorySpinner" />
