@@ -188,7 +188,10 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     public void onNextClick(View v){
+        finish();
         Intent intent = new Intent(ResultsActivity.this, AnswerActivity.class);
+        intent.putExtra("Category.id",category.getId());
+        intent.putExtra("Category.name",category.getName());
         startActivity(intent);
     }
 

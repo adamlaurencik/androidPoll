@@ -85,29 +85,34 @@ public class AnswerActivity extends AppCompatActivity {
 
             @Override
             public void onNext(final ServerResponse<Question> questionServerResponse) {
-                OptionManager optionManger = new OptionManagerImpl();
-                Observer<ServerResponse<List<Option>>> optionObserver = new Observer<ServerResponse<List<Option>>>() {
-                    @Override
-                    public void onCompleted() {
+                if(!questionServerResponse.isSuccessful()){
+                    AnswerActivity.this.setContentView(R.layout.content_answer_empty);
+                }else {
 
-                    }
+                    OptionManager optionManger = new OptionManagerImpl();
+                    Observer<ServerResponse<List<Option>>> optionObserver = new Observer<ServerResponse<List<Option>>>() {
+                        @Override
+                        public void onCompleted() {
 
-                    @Override
-                    public void onError(Throwable e) {
+                        }
 
-                    }
+                        @Override
+                        public void onError(Throwable e) {
 
-                    @Override
-                    public void onNext(ServerResponse<List<Option>> optionList) {
-                        AnswerAdapter answerAdapter = new AnswerAdapter(that,optionList.getData(),questionServerResponse.getData(), category);
-                        ListView listView = (ListView) findViewById(R.id.answer_list_view);
-                        listView.setAdapter(answerAdapter);
-                    }
-                };
-                optionManger.getQuestionOptions(optionObserver,questionServerResponse.getData().getId());
-                TextView question2 = (TextView) findViewById(R.id.questionTextView);
-                question2.setText(questionServerResponse.getData().getQuestion());
-                question = questionServerResponse.getData();
+                        }
+
+                        @Override
+                        public void onNext(ServerResponse<List<Option>> optionList) {
+                            AnswerAdapter answerAdapter = new AnswerAdapter(that, optionList.getData(), questionServerResponse.getData(), category);
+                            ListView listView = (ListView) findViewById(R.id.answer_list_view);
+                            listView.setAdapter(answerAdapter);
+                        }
+                    };
+                    optionManger.getQuestionOptions(optionObserver, questionServerResponse.getData().getId());
+                    TextView question2 = (TextView) findViewById(R.id.questionTextView);
+                    question2.setText(questionServerResponse.getData().getQuestion());
+                    question = questionServerResponse.getData();
+                }
             }
         };
         manager.getRandomQuestion(observer, category,

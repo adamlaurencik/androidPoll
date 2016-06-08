@@ -85,7 +85,9 @@ public class OwnPollsActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        super.onBackPressed();
+        finish();
+        Intent intent = new Intent(OwnPollsActivity.this, MenuActivity.class);
+        startActivity(intent);
     }
 }
 
