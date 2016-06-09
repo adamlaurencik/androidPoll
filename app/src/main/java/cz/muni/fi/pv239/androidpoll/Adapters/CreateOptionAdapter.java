@@ -68,7 +68,7 @@ public class CreateOptionAdapter extends BaseAdapter {
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
                     EditText editTxt = (EditText) v;
-                    options.get(position).setText(editTxt.getText().toString());
+                    if(position<getOptions().size()) options.get(position).setText(editTxt.getText().toString());
                 }
             }
         });
@@ -84,7 +84,7 @@ public class CreateOptionAdapter extends BaseAdapter {
                 }
             }
         });
-        return convertView;
+        return thisConvertView;
     }
 }
 class OptionViewHolder{
