@@ -23,7 +23,7 @@
         android:layout_height="300dp"
         android:id="@+id/imageView2"
         android:layout_gravity="center_horizontal"
-        android:background="@android:mipmap/sym_def_app_icon"
+        android:background="@mipmap/sad"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
