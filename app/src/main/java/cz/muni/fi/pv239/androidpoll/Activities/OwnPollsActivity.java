@@ -33,7 +33,7 @@ public class OwnPollsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_own_polls);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(SharedPrefsContainer.getSharedPreferences(that).getString("username", "Your") + "´s Polls");
 
         SecurePreferences preferences = SharedPrefsContainer.getSharedPreferences(this);
@@ -79,6 +79,7 @@ public class OwnPollsActivity extends AppCompatActivity {
             public void onNext(ServerResponse<List<Question>> listServerResponse) {
                 if(listServerResponse.getData().isEmpty()){
                     OwnPollsActivity.this.setContentView(R.layout.content_own_polls_empty);
+                //    toolbar.setTitle(SharedPrefsContainer.getSharedPreferences(that).getString("username", "Your") + "´s Polls");
                 }else {
                     OwnQuestionAdapter adapter = new OwnQuestionAdapter(that, listServerResponse.getData(), manager);
                     listView.setAdapter(adapter);
