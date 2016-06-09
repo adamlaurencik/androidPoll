@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.AnswerActivity"
+    android:id="@+id/content_layout_answer"
     tools:showIn="@layout/activity_answer" android:layout_marginTop="56dp">
 
     <LinearLayout android:id="@+id/upperLayout"
@@ -11,22 +12,6 @@
         android:layout_height="230dp"
         android:background="#9400D3"
         xmlns:tools="http://schemas.android.com/tools">
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:text="> skip"
-            android:layout_marginTop="7dp"
-            android:layout_marginRight="7dp"
-            android:background="#E23246"
-            android:textSize="20sp"
-            android:textColor="#FFFFFF"
-            android:id="@+id/skipButton"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_gravity="right" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,7 +23,7 @@
             android:textColor="#FFFFFF"
             android:layout_below="@+id/skipButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="90dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
