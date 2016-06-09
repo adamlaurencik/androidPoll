@@ -3,12 +3,19 @@ package cz.muni.fi.pv239.androidpoll.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
+import com.github.mikephil.charting.utils.ColorTemplate;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import cz.muni.fi.pv239.androidpoll.Activities.AnswerActivity;
 import cz.muni.fi.pv239.androidpoll.Activities.MenuActivity;
@@ -24,6 +31,7 @@ public class CategoryAdapter extends BaseAdapter{
     private Context context;
     private View.OnClickListener onClickListener;
     List<Category> categories;
+    private static int counter = -1;
 
     public CategoryAdapter(Context context, List<Category> categories){
         this.context = context;
@@ -56,6 +64,9 @@ public class CategoryAdapter extends BaseAdapter{
             final Category category = (Category) getItem(position);
             button.setTag("#" + category.getName());
             button.setText("#" + category.getName());
+            button.setHeight(350);
+
+            button.setBackgroundColor(getColor());
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -69,5 +80,20 @@ public class CategoryAdapter extends BaseAdapter{
             button = (Button) convertView;
         }
         return button;
+    }
+    private Integer getColor() {
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.rgb(193,113,113));
+        colors.add(Color.RED);
+        colors.add(Color.GRAY);
+        colors.add(Color.CYAN);
+        colors.add(Color.GREEN);
+        colors.add(Color.MAGENTA);
+        colors.add(Color.YELLOW);
+        colors.add(Color.rgb(0,130,130));
+        colors.add(Color.rgb(240, 64, 10));
+
+        counter++;
+        return colors.get(counter % colors.size());
     }
 }
