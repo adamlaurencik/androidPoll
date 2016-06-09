@@ -105,6 +105,8 @@ public class OwnResultsActivity extends AppCompatActivity {
                         }
                         if(data.isEmpty()){
                             OwnResultsActivity.this.setContentView(R.layout.content_unanswered_question);
+                            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                            toolbar.setTitle("Results");
                         }else{
                             makeGraph();
                         }

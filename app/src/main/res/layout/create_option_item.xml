@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:layout_width="80dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Answer 1:"
@@ -20,8 +20,12 @@
         android:id="@+id/option_item_answer_edit_text"
         android:layout_weight="2"
         android:layout_alignParentTop="true"
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"
+        android:hint="Option"
         android:layout_toLeftOf="@+id/option_item_answer_delete"
-        android:layout_toStartOf="@+id/option_item_answer_delete" />
+        android:layout_alignLeft="@+id/option_item_answer_text"
+        android:layout_alignStart="@+id/option_item_answer_text" />
 
     <ImageButton
         android:layout_width="wrap_content"
