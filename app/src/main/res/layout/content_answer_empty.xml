@@ -1,16 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activities.AnswerActivity"
-    android:layout_marginTop="56dp">
+    android:layout_marginTop="0dp"
+    android:background="#00ffff">
 
-
-    <TextView
-        android:layout_width="wrap_content"
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:text="You have answered all Polls in this category"
-        />
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout android:id="@+id/upperLayout"
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="#9400D3"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="27sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="I'm sorry, but there are no other questions in this category"
+            android:id="@+id/questionTextView"
+            android:textColor="#FFFFFF"
+            android:layout_below="@+id/skipButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lowerLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/upperLayout"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    </LinearLayout>
 
 </LinearLayout>
