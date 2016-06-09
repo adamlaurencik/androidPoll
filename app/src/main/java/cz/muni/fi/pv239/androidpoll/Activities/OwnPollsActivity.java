@@ -77,8 +77,12 @@ public class OwnPollsActivity extends AppCompatActivity {
 
             @Override
             public void onNext(ServerResponse<List<Question>> listServerResponse) {
-                OwnQuestionAdapter adapter= new OwnQuestionAdapter(that,listServerResponse.getData(),manager);
-                listView.setAdapter(adapter);
+                if(listServerResponse.getData().isEmpty()){
+                    OwnPollsActivity.this.setContentView(R.layout.content_own_polls_empty);
+                }else {
+                    OwnQuestionAdapter adapter = new OwnQuestionAdapter(that, listServerResponse.getData(), manager);
+                    listView.setAdapter(adapter);
+                }
             }
         };
         manager.getUsersQuestion(observer, preferences.getString("username", ""), preferences.getString("password", ""));

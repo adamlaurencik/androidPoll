@@ -45,15 +45,22 @@
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/lowerLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_below="@+id/upperLayout"
         android:layout_height="match_parent"
-        android:layout_marginTop="0dp"
         xmlns:tools="http://schemas.android.com/tools">
 
-    </LinearLayout>
+        <ImageView
+            android:layout_width="195dp"
+            android:layout_height="135dp"
+            android:id="@+id/image_error"
+            android:src="@mipmap/sad"
+            android:layout_below = "@id/upperLayout"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 
 </LinearLayout>

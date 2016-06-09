@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="27sp"
-            android:text="Question is here"
+            android:text=""
             android:id="@+id/questionTextView"
             android:textColor="#FFFFFF"
             android:layout_below="@+id/skipButton"
