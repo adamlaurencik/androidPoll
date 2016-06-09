@@ -48,6 +48,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Registration");
+        setSupportActionBar(toolbar);
 
         NumberPicker agePicker = (NumberPicker) findViewById(R.id.registrationAgeNumberPicker);
         agePicker.setMaxValue(100);
