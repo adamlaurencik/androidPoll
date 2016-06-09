@@ -7,9 +7,11 @@
     tools:showIn="@layout/activity_results" android:layout_marginTop="56dp">
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="next"
+        android:textColor="@android:color/white"
+        android:background="@drawable/buttonshape"
         android:id="@+id/nextButton"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="45dp"
@@ -20,9 +22,11 @@
         android:layout_marginLeft="50dp"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Menu"
+        android:textColor="@android:color/white"
+        android:background="@drawable/buttonshape"
         android:id="@+id/menuButton"
         android:onClick="onMenuClick"
         android:layout_below="@+id/pieStats"

@@ -173,7 +173,7 @@ public class OwnResultsActivity extends AppCompatActivity {
         PieData pieData = new PieData(names, dataSet);
         pieData.setValueFormatter(new LargeValueFormatter());
         //new PercentFormatter());
-        pieData.setValueTextSize(11f);
+        pieData.setValueTextSize(18.5f);
         pieData.setValueTextColor(Color.GRAY);
 
         statsChart.setData(pieData);
