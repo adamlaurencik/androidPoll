@@ -35,6 +35,10 @@ public class OptionManagerImpl implements OptionManager {
             //log
             return;
         }
+        if(text == null ||text.equals("") || text.isEmpty()){
+            //log
+            return;
+        }
         Observable<ServerResponse<Option>> observable = api.addOption(login, q.getId(), text, password);
         observable.subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(observer);
