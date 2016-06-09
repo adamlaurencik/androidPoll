@@ -63,6 +63,7 @@ public class CreateOptionAdapter extends BaseAdapter {
         final OptionViewHolder optionViewHolder;
         optionViewHolder = (OptionViewHolder) convertView.getTag();
         optionViewHolder.optionTextView.setText(position+":");
+        optionViewHolder.optionEditText.setText(getItem(position).getText());
         optionViewHolder.optionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
