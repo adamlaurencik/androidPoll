@@ -19,6 +19,7 @@ import java.util.Random;
 
 import cz.muni.fi.pv239.androidpoll.Activities.AnswerActivity;
 import cz.muni.fi.pv239.androidpoll.Activities.MenuActivity;
+import cz.muni.fi.pv239.androidpoll.Activities.OwnPollsActivity;
 import cz.muni.fi.pv239.androidpoll.Entities.Category;
 
 import static android.support.v4.app.ActivityCompat.startActivity;
@@ -67,18 +68,29 @@ public class CategoryAdapter extends BaseAdapter{
         final Category category =  getItem(position);
         button.setTag("#" + category.getName());
         button.setText("#" + category.getName());
-        button.setHeight(350);
-
+        button.setHeight(200 * (int)context.getResources().getDisplayMetrics().density);
+        if(position == 0){
+            button.setBackgroundColor(Color.WHITE);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,OwnPollsActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        } else {
         button.setBackgroundColor(getColor(category.getId()));
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, AnswerActivity.class);
-                intent.putExtra("Category.id",category.getId());
-                intent.putExtra("Category.name",category.getName());
-                context.startActivity(intent);
-            }
-        });
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, AnswerActivity.class);
+                    intent.putExtra("Category.id", category.getId());
+                    intent.putExtra("Category.name", category.getName());
+                    context.startActivity(intent);
+                }
+            });
+        }
         return button;
     }
     private Integer getColor(Long id) {

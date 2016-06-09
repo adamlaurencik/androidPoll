@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
@@ -84,7 +85,12 @@ public class MenuActivity extends AppCompatActivity {
             public void onNext(ServerResponse<List<Category>> response) {
                 if(response.isSuccessful()){
                     gridCategories = (GridView) findViewById(R.id.categoriesGridView);
-                    List<Category> categories = response.getData();
+
+                    List<Category> categories = new ArrayList<>();
+                    Category myPolls = new Category();
+                    myPolls.setName("My Polls");
+                    categories.add(0,myPolls);
+                    categories.addAll(response.getData());
 
                     categoryAdapter = new CategoryAdapter(that, categories);
                     gridCategories.setAdapter(categoryAdapter);
