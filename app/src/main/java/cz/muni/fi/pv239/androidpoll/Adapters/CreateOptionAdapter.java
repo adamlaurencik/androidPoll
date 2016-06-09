@@ -52,12 +52,14 @@ public class CreateOptionAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         if(convertView==null || convertView.getTag()==null){
             OptionViewHolder optionViewHolder;
             convertView=inflater.inflate(R.layout.create_option_item,parent,false);
             optionViewHolder =new OptionViewHolder(convertView,context,position);
             convertView.setTag(optionViewHolder);
         }
+        final View thisConvertView = convertView;
         final OptionViewHolder optionViewHolder;
         optionViewHolder = (OptionViewHolder) convertView.getTag();
         optionViewHolder.optionTextView.setText(position+":");
@@ -74,7 +76,7 @@ public class CreateOptionAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 if (getOptions().size() > 2) {
-                    optionViewHolder.optionEditText.setOnClickListener(null);
+                    thisConvertView.setTag(null);
                     getOptions().remove(position);
                     notifyDataSetChanged();
                 }else{
