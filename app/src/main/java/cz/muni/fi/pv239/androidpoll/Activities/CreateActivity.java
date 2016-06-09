@@ -164,6 +164,7 @@ public class CreateActivity extends AppCompatActivity {
 
     public void onProceedCreateClick(View v){
         boolean sucess=true;
+        v.requestFocus();
         boolean optionsSuccess=true;
         String questionText=questionEditText.getText().toString();
         if(questionText.length()==0){
