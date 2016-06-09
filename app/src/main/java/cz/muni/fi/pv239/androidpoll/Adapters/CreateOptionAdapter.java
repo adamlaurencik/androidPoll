@@ -64,13 +64,21 @@ public class CreateOptionAdapter extends BaseAdapter {
         optionViewHolder = (OptionViewHolder) convertView.getTag();
         optionViewHolder.optionTextView.setText(position+":");
         optionViewHolder.optionEditText.setText(getItem(position).getText());
-        optionViewHolder.optionEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        optionViewHolder.optionEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(!hasFocus){
-                    EditText editTxt = (EditText) v;
-                    if(position<getOptions().size()) options.get(position).setText(editTxt.getText().toString());
-                }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(position<getOptions().size()) options.get(position).setText(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         optionViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {

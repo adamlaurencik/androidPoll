@@ -172,6 +172,7 @@ public class CreateActivity extends AppCompatActivity {
             questionEditText.startAnimation(shake);
             sucess=false;
         }
+
         List<String> stringOptions = new ArrayList<>();
         for(Option option : optionsList){
             if(option.getText()==null || option.getText().length()==0){
