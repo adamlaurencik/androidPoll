@@ -61,27 +61,27 @@ public class CategoryAdapter extends BaseAdapter{
         final Button button;
         if(convertView == null){
             button = new Button(context);
-            final Category category = (Category) getItem(position);
-            button.setTag("#" + category.getName());
-            button.setText("#" + category.getName());
-            button.setHeight(350);
-
-            button.setBackgroundColor(getColor());
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(context, AnswerActivity.class);
-                    intent.putExtra("Category.id",category.getId());
-                    intent.putExtra("Category.name",category.getName());
-                    context.startActivity(intent);
-                }
-            });
         } else {
             button = (Button) convertView;
         }
+        final Category category =  getItem(position);
+        button.setTag("#" + category.getName());
+        button.setText("#" + category.getName());
+        button.setHeight(350);
+
+        button.setBackgroundColor(getColor(category.getId()));
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, AnswerActivity.class);
+                intent.putExtra("Category.id",category.getId());
+                intent.putExtra("Category.name",category.getName());
+                context.startActivity(intent);
+            }
+        });
         return button;
     }
-    private Integer getColor() {
+    private Integer getColor(Long id) {
         ArrayList<Integer> colors = new ArrayList<>();
         colors.add(Color.rgb(193,113,113));
         colors.add(Color.RED);
@@ -92,8 +92,6 @@ public class CategoryAdapter extends BaseAdapter{
         colors.add(Color.YELLOW);
         colors.add(Color.rgb(0,130,130));
         colors.add(Color.rgb(240, 64, 10));
-
-        counter++;
-        return colors.get(counter % colors.size());
+        return colors.get(id.intValue() % colors.size());
     }
 }
