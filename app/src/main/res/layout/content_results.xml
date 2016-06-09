@@ -12,21 +12,23 @@
         android:text="next"
         android:id="@+id/nextButton"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="46dp"
+        android:layout_marginBottom="45dp"
+        android:onClick="onNextClick"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/results_text_of_question"
-        android:layout_alignStart="@+id/results_text_of_question"
-        android:onClick="onNextClick" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="50dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Menu"
         android:id="@+id/menuButton"
-        android:layout_alignTop="@+id/nextButton"
-        android:layout_alignRight="@+id/results_text_of_question"
-        android:layout_alignEnd="@+id/results_text_of_question"
-        android:onClick="onMenuClick" />
+        android:onClick="onMenuClick"
+        android:layout_below="@+id/pieStats"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="50dp"/>
 
     <com.github.mikephil.charting.charts.PieChart
         android:layout_width="match_parent"

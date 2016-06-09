@@ -123,7 +123,7 @@ public class OwnResultsActivity extends AppCompatActivity {
 
         //relativeLayout.addView(statsChart);
         //statsChart.setUsePercentValues(true); ///set use percent maybe
-        //statsChart.setDescription("Answers share");
+        statsChart.setDescription("");
         statsChart.setDrawHoleEnabled(true);
         statsChart.setHoleColor(0);
         statsChart.setHoleRadius(7);
@@ -157,7 +157,7 @@ public class OwnResultsActivity extends AppCompatActivity {
     }
 
     private void addData(){
-        PieDataSet dataSet = new PieDataSet(data, "Answers Share");
+        PieDataSet dataSet = new PieDataSet(data, "");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5); // 3?
 

@@ -106,7 +106,7 @@ public class ResultsActivity extends AppCompatActivity {
                 if(listServerResponse.isSuccessful()){
                     for(Option option : listServerResponse.getData()){
                         names.add(option.getText());
-                        data.add(new Entry(option.getNumOfAnswers(),names.size()-1));
+                        if(option.getNumOfAnswers()!=0) data.add(new Entry(option.getNumOfAnswers(),names.size()-1));
                     }
                     makeGraph();
                 }
@@ -124,7 +124,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         //relativeLayout.addView(statsChart);
         //statsChart.setUsePercentValues(true); ///set use percent maybe
-        //statsChart.setDescription("Answers share");
+        statsChart.setDescription("");
         statsChart.setDrawHoleEnabled(true);
         statsChart.setHoleColor(0);
         statsChart.setHoleRadius(7);
@@ -158,7 +158,7 @@ public class ResultsActivity extends AppCompatActivity {
     }
 
     private void addData(){
-        PieDataSet dataSet = new PieDataSet(data, "Answers Share");
+        PieDataSet dataSet = new PieDataSet(data, "");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5); // 3?
 
@@ -174,7 +174,7 @@ public class ResultsActivity extends AppCompatActivity {
         PieData pieData = new PieData(names, dataSet);
         pieData.setValueFormatter(new LargeValueFormatter());
         //new PercentFormatter());
-        pieData.setValueTextSize(11f);
+        pieData.setValueTextSize(15f);
         pieData.setValueTextColor(Color.GRAY);
 
         statsChart.setData(pieData);
