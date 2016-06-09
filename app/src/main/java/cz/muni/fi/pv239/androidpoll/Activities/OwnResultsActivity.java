@@ -101,8 +101,10 @@ public class OwnResultsActivity extends AppCompatActivity {
             public void onNext(ServerResponse<List<Option>> listServerResponse) {
                     if(listServerResponse.isSuccessful()){
                         for(Option option : listServerResponse.getData()){
-                            names.add(option.getText());
-                            if(option.getNumOfAnswers()!=0) data.add(new Entry(option.getNumOfAnswers(),names.size()-1));
+                            if(option.getNumOfAnswers()!=0) {
+                                names.add(option.getText());
+                                data.add(new Entry(option.getNumOfAnswers(), names.size() - 1));
+                            }
                         }
                         if(data.isEmpty()){
                             OwnResultsActivity.this.setContentView(R.layout.content_unanswered_question);
