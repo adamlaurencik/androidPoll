@@ -50,7 +50,7 @@ public class RegistrationActivity extends AppCompatActivity {
         toolbar.setTitle("Registration");
 
         NumberPicker agePicker = (NumberPicker) findViewById(R.id.registrationAgeNumberPicker);
-        agePicker.setMaxValue(110);
+        agePicker.setMaxValue(100);
         agePicker.setMinValue(5);
 
 
@@ -100,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
         Gender gender = null;
         if(genderId == R.id.registrationMaleRadioButton) gender = Gender.MALE;
         if(genderId == R.id.registrationFemaleRadioButton) gender = Gender.FEMALE;
-        if(nameEdit.getText().toString().length()<5){
+        if(nameEdit.getText().toString().length()<4){
             showError(nameEdit,"Name must have at least 4 letters");
             return;
         }

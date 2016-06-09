@@ -15,61 +15,15 @@
     tools:context=".Activities.RegistrationActivity"
     tools:showIn="@layout/activity_registration" android:layout_marginTop="56dp">
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:background="@drawable/rounded_edittext"
-        android:padding="10dp"
-        android:ems="10"
-        android:id="@+id/registrationNameEditText"
-        android:layout_marginTop="46dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/registrationPasswordEditText"
-        android:layout_alignStart="@+id/registrationPasswordEditText" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:background="@drawable/rounded_edittext"
-        android:padding="10dp"
-        android:ems="10"
-        android:id="@+id/registrationPasswordEditText"
-        android:layout_below="@+id/registrationNameTextView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="28dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name:"
-        android:id="@+id/registrationNameTextView"
-        android:layout_alignBottom="@+id/registrationNameEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Password:"
-        android:id="@+id/registrationPasswordTextView"
-        android:layout_alignBottom="@+id/registrationPasswordEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
     <NumberPicker
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/registrationAgeNumberPicker"
-        android:layout_alignTop="@+id/registrationAgeTextView"
-        android:layout_toLeftOf="@+id/registrationPasswordEditText"
-        android:layout_toStartOf="@+id/registrationPasswordEditText" />
+        android:layout_marginLeft="28dp"
+        android:layout_marginStart="28dp"
+        android:layout_below="@+id/linearLayout5"
+        android:layout_toRightOf="@+id/registrationAgeTextView"
+        android:layout_toEndOf="@+id/registrationAgeTextView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -77,10 +31,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Age:"
         android:id="@+id/registrationAgeTextView"
-        android:layout_below="@+id/registrationPasswordTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp" />
+        android:layout_alignTop="@+id/registrationAgeNumberPicker"
+        android:layout_alignLeft="@+id/linearLayout5"
+        android:layout_alignStart="@+id/linearLayout5" />
 
     <Button
         android:layout_width="wrap_content"
@@ -99,9 +52,7 @@
         android:id="@+id/radioGroup"
         android:layout_below="@+id/genderTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignLeft="@+id/genderTextView"
-        android:layout_alignStart="@+id/genderTextView">
+        android:layout_alignParentEnd="true">
 
 
 
@@ -130,22 +81,102 @@
         android:text="Gender:"
         android:id="@+id/genderTextView"
         android:layout_alignTop="@+id/registrationAgeNumberPicker"
-        android:layout_toRightOf="@+id/registrationAgeNumberPicker"
-        android:layout_toEndOf="@+id/registrationAgeNumberPicker"
-        android:layout_marginLeft="27dp"
-        android:layout_marginStart="27dp" />
+        android:layout_alignLeft="@+id/radioGroup"
+        android:layout_alignStart="@+id/radioGroup" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Tell us who you are!"
+        android:text="Who you are?"
         android:id="@+id/textView5"
-        android:layout_alignParentTop="true"
         android:textSize="35dp"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:gravity="center" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout5"
+        android:layout_below="@+id/linearLayout4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="false"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Password:"
+            android:id="@+id/registrationPasswordTextView"
+            android:layout_alignBottom="@+id/registrationPasswordEditText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="bottom"
+            android:layout_weight="0"
+            android:layout_marginRight="5dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
+            android:ems="10"
+            android:id="@+id/registrationPasswordEditText"
+            android:layout_below="@+id/registrationNameTextView"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="bottom"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:layout_below="@+id/textView5"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Name:"
+            android:id="@+id/registrationNameTextView"
+            android:layout_alignBottom="@+id/registrationNameEditText"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_weight="0"
+            android:layout_marginRight="5dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:background="@drawable/rounded_edittext"
+            android:padding="10dp"
+            android:ems="10"
+            android:id="@+id/registrationNameEditText"
+            android:layout_below="@+id/textView5"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </RelativeLayout>
