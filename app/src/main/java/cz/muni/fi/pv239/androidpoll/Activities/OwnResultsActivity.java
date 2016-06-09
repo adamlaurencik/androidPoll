@@ -88,6 +88,7 @@ public class OwnResultsActivity extends AppCompatActivity {
                                     intent.addCategory(Intent.CATEGORY_HOME);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
+                                    System.exit(0);
                                 }
                             })
 
@@ -105,6 +106,8 @@ public class OwnResultsActivity extends AppCompatActivity {
                         }
                         if(data.isEmpty()){
                             OwnResultsActivity.this.setContentView(R.layout.content_unanswered_question);
+                            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+                            toolbar.setTitle("Results");
                         }else{
                             makeGraph();
                         }

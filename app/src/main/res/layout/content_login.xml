@@ -16,26 +16,57 @@
         android:layout_width="300dp"
         android:layout_height="55dp"
         android:id="@+id/loginNameEditText"
-        android:layout_marginTop="130dp"
-        android:layout_marginLeft="20dp" />
+        android:hint="username"
+        android:background="@drawable/rounded_edittext"
+        android:padding="10dp"
+        android:layout_above="@+id/loginPasswordEditText"
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:layout_width="300dp"
         android:layout_height="55dp"
+        android:hint="password"
         android:inputType="textPassword"
         android:id="@+id/loginPasswordEditText"
-        android:layout_below="@+id/loginNameEditText"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"/>
+        android:padding="10dp"
+        android:background="@drawable/rounded_edittext"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/loginNameEditText"
+        android:layout_alignStart="@+id/loginNameEditText"
+        android:layout_marginTop="20dp" />
 
     <Button
         android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:text="LOG IN"
+        android:textSize="15dp"
+        android:textColor="@android:color/white"
         android:id="@+id/loginFinishButton"
+        android:background="@drawable/buttonshape"
+        android:onClick="onProceedLoginClick"
+        android:layout_marginTop="28dp"
         android:layout_below="@+id/loginPasswordEditText"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome!"
+        android:id="@+id/textView3"
+        android:textSize="40dp"
+        android:layout_above="@+id/loginNameEditText"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="91dp"
-        android:onClick="onProceedLoginClick" />
+        android:layout_marginBottom="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Don&apos;t have account yet? Register!"
+        android:id="@+id/textView4"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
